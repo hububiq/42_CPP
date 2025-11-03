@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
-#include <iomanip>
+//#include <iomanip>
 #include "Phonebook.Class.hpp"
 #include "Contact.class.hpp"
 
@@ -15,10 +15,16 @@ int main()
         std::cout << "Type ADD to add new contact, SEARCH to look up the list "
                   << "or EXIT to leave the program and lost your contacts forever!" << std::endl;
         std::string cmnd;
-        std::cin >> cmnd;
+        std::getline(std::cin, cmnd);
+        if (cmnd.empty())
+        {
+            std::cout << "You can't input empty line!" << std::endl;
+            continue;
+        }
         if (cmnd == "ADD")
         {
-            phonebook.addNew(counter); //what if the user gives empty input? - its resolved by cin specific
+            if (phonebook.addNew(counter))
+                continue;
             counter++;
             if (counter > 7)
             {

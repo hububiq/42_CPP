@@ -10,9 +10,12 @@ class PhoneBook
         PhoneBook();
         ~PhoneBook();
 
-        void addNew(int index_from_main);
+        int addNew(int index_from_main);
         void showColumns(int counter);
         void showContact(int position);
 };
+
+int isNotString(std::string frominput);
+int isempty(std::string input);
 
 #endif 
