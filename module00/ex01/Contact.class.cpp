@@ -6,7 +6,7 @@ Contact::Contact()
     firstName(""),
     lastName(""),
     nickname(""),
-    phoneNumber(0),
+    phoneNumber(""),
     darkestSecret("")
 {
     return ;
