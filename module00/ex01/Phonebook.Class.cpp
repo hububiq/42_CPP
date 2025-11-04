@@ -9,6 +9,7 @@
 //w main jak instancjonuje obiekt danej klasy, to odwoluje sie juz tylko do niego, nie do klasy np PhoneBook::
 //definicja konstruktora i destruktora, ktore musza nazywac sie tak samo jak klasa.
 //definicje funkcji 
+//powinno byc _variables w zakresie private:
 
 PhoneBook::PhoneBook()
 :   full(false)
