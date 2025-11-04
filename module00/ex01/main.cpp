@@ -43,12 +43,19 @@ int main()
                 else
                     phonebook.showColumns(8);
                 std::cout << "Choose which contact you want to view --- index from first column" << std::endl;
-                int position = 0;
-                std::cin >> position;
-                if (position > counter - 1)
+                std::string position;
+                std::getline(std::cin, position);
+                if (position.empty())
+                {
+                    std::cout << "You can't input empty line!" << std::endl;
+                    continue;
+                }
+                if (std::stoi(position) < 0 || std::stoi(position) > 7)
+                    std::cout << "Index is out of range" << std::endl;
+                else if (std::stoi(position) > counter - 1)
                     std::cout << "You have no contact under this index" << std::endl;
                 else
-                    phonebook.showContact(position);
+                    phonebook.showContact(std::stoi(position));
             }
         }
         else if (cmnd == "EXIT")

@@ -28,33 +28,83 @@ int isNotString(std::string frominput)
     return (0);
 }
 
+int notAllDigits(std::string number)
+{
+    size_t i = 0;
+    
+    for (i = 0; i < number.length(); i++)
+    {
+        if (isdigit(number[i]))
+            continue;
+        return (1);
+    }
+    return (0);
+}
+
 int PhoneBook::addNew(int index_from_main)
 {
     std::string tempFirstName;
     std::string tempLastName;
-    std::string temp
+    std::string tempNickname;
+    std::string tempNumber;
+    std::string tempDarkestSecret;
+
     this->contacts[index_from_main].index = index_from_main;
     std::cout << "Please input your name" << std::endl;
     std::getline(std::cin, tempFirstName);
     if (tempFirstName.empty())
     {
-        std::cout << "You can't input empty line!" << std::endl;
+        std::cout << "You can't input empty line! Start over." << std::endl;
         return (1);
     }
     if (isNotString(tempFirstName))
     {
-        std::cout << "Your name contains digits" << std::endl;
+        std::cout << "Your name contains digits. Start over." << std::endl;
         return (1);
     }
     this->contacts[index_from_main].firstName = tempFirstName;
     std::cout << "Please input your last name" << std::endl;
-    std::cin >> this->contacts[index_from_main].lastName;
+    std::getline(std::cin, tempLastName);
+    if (tempLastName.empty())
+    {
+        std::cout << "You can't input empty line! Start over." << std::endl;
+        return (1);
+    }
+    if (isNotString(tempLastName))
+    {
+        std::cout << "Your last name contains digits. Start over." << std::endl;
+        return (1);
+    }
+    this->contacts[index_from_main].lastName = tempLastName;
     std::cout << "Please input your nickname" << std::endl;
-    std::cin >> this->contacts[index_from_main].nickname;
+    std::getline(std::cin, tempNickname);
+    if (tempNickname.empty())
+    {
+        std::cout << "You can't input empty line! Start over." << std::endl;
+        return (1);
+    }
+    this->contacts[index_from_main].nickname = tempNickname;
     std::cout << "Please enter your number (digits only)" << std::endl;
-    std::cin >> this->contacts[index_from_main].phoneNumber;
+    std::getline(std::cin, tempNumber);
+    if (tempNumber.empty())
+    {
+        std::cout << "You can't input empty line! Start over." << std::endl;
+        return (1);
+    }
+    if (notAllDigits(tempNumber))
+    {
+        std::cout << "Your number contains characters. Start over." << std::endl;
+        return (1);
+    }
+    this->contacts[index_from_main].phoneNumber = tempNumber;
     std::cout << "Please input your darkest secret" << std::endl;
-    std::cin >> this->contacts[index_from_main].darkestSecret;
+    std::getline(std::cin, tempDarkestSecret);
+    if (tempDarkestSecret.empty())
+    {
+        std::cout << "You can't input empty line! Start over." << std::endl;
+        return (1);
+    }
+    this->contacts[index_from_main].darkestSecret = tempDarkestSecret;
     return (0);
 }
 

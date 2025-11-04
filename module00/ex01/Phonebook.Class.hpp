@@ -16,6 +16,5 @@ class PhoneBook
 };
 
 int isNotString(std::string frominput);
-int isempty(std::string input);
-
+int notAllDigits(std::string number);
 #endif 
