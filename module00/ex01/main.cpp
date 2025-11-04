@@ -1,7 +1,6 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
-//#include <iomanip>
 #include "Phonebook.Class.hpp"
 #include "Contact.class.hpp"
 
@@ -10,7 +9,7 @@ int main()
     PhoneBook       phonebook;
     int             counter = 0;
     
-    while (1)
+    while (1)    //should be getline here to avoid broken inifnite loop.
     {
         std::cout << "Type ADD to add new contact, SEARCH to look up the list "
                   << "or EXIT to leave the program and lost your contacts forever!" << std::endl;
