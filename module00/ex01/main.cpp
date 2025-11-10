@@ -4,12 +4,16 @@
 #include "Phonebook.Class.hpp"
 #include "Contact.class.hpp"
 
+
+/*CTRL + D on while(1) is throwing infinite error. cin has status fail, and program its looping on it*/
+/*no handling when index is given as non-digit*/
+
 int main()
 {
     PhoneBook       phonebook;
     int             counter = 0;
     
-    while (1)    //should be getline here to avoid broken inifnite loop.
+    while (1)
     {
         std::cout << "Type ADD to add new contact, SEARCH to look up the list "
                   << "or EXIT to leave the program and lost your contacts forever!" << std::endl;
