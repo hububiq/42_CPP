@@ -7,7 +7,7 @@ RM = rm -f
 
 all: ${NAME}
 
-%.o: %.cpp ${INCLUDES}
+%.o: %.cpp
 	${CC} ${FLAGS} -c $< -o $@
 
 ${NAME}: ${OBJ}
@@ -19,6 +19,5 @@ clean:
 fclean: clean
 	${RM} ${NAME}
 
-re:
-	fclean all
+re: fclean all
 
