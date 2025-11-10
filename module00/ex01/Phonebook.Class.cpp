@@ -122,7 +122,7 @@ void PhoneBook::showColumns(int counter)
             std::cout << this->contacts[i].firstName << "|";
         std::cout << std::setfill(' ') << std::setw(10);
         if (this->contacts[i].lastName.length() > 10)
-            std::cout << this->contacts[i].lastName.substr(0, 10) << "|";
+            std::cout << this->contacts[i].lastName.substr(0, 9) + "." << ".|";
         else
             std::cout << this->contacts[i].lastName << "|";
         std::cout << std::setfill(' ') << std::setw(10);

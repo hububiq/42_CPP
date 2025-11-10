@@ -20,5 +20,4 @@ clean:
 fclean: clean
 	${RM} ${NAME}
 
-RE:
-	fclean all
+re: fclean all
