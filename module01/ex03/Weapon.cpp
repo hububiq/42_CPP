@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-Weapon::Weapon(): _type("") {}
+Weapon::Weapon(): _type(weaponType) {}
 
 std::string const & getType()
 {
