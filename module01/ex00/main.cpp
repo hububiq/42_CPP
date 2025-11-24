@@ -5,10 +5,11 @@ int main()
 {
     std::string name;
 
-    std::cout >> "Give the name for zombie";
-    std::cin << name;
+    std::cout << "Give the name for zombie" << std::endl;
+    std::cin >> name;
     Zombie* z = newZombie(name);
-    z->announce();
-    delete z; //triggers destructor
+    randomChump(name);
+    std::cout << "Below the heap Zombie will be destroyed:" << std::endl;
+    delete z; //triggers destructor of pointer
     return (0);
 }
