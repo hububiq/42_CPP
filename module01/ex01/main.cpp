@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Zombie.hpp"
 
+/*i assumed for every zombie is the same name*/
 int main()
 {
     int N;
