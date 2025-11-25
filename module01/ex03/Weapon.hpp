@@ -2,6 +2,8 @@
 # define WEAPON_H
 # include <string>
 
+/*do I need to use "const" at the end of for example getType? to tell complier the return is read-only*/
+
 class Weapon
 {
     private:

@@ -8,11 +8,11 @@ RM = rm -f
 
 all: ${NAME}
 
-%.o: %.o ${INCLUDES}
+%.o: %.cpp ${INCLUDES}
 	${CC} ${FLAGS} -c $< -o $@
 
 ${NAME}: ${OBJ}
-	${CC} ${FLAGS} $< -o ${NAME}
+	${CC} ${FLAGS} $^ -o $@
 
 clean:
 	${RM} ${OBJ}
