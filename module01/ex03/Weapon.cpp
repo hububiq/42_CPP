@@ -3,12 +3,12 @@
 
 Weapon::Weapon(std::string weaponType): _type(weaponType) {}
 
-std::string const & getType()
+std::string const & Weapon::getType()
 {
     return (this->_type);
 }
 
-void setType(std::string otherType)
+void Weapon::setType(std::string otherType)
 {
     this->_type = otherType;
 }
