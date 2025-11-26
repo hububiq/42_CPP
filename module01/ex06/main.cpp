@@ -25,19 +25,16 @@ int main(int argc, char **argv)
     switch (level)
     {
         case 0:
-            std::cout << "[ " << argv[1] << " ]" << std::endl;
+            std::cout << "[ " << "DEBUG" << " ]" << std::endl;
             h.callFunction(0);
-            break;
         case 1:
-            std::cout << "[ " << argv[1] << " ]" << std::endl;
+            std::cout << "[ " << "INFO" << " ]" << std::endl;
             h.callFunction(1);
-            break;
         case 2:
-            std::cout << "[ " << argv[1] << " ]" << std::endl;
+            std::cout << "[ " << "WARNING" << " ]" << std::endl;
             h.callFunction(2);
-            break;
         case 3:
-            std::cout << "[ " << argv[1] << " ]" << std::endl;
+            std::cout << "[ " << "ERROR" << " ]" << std::endl;
             h.callFunction(3);
             break;
         default:
