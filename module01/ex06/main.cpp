@@ -11,29 +11,32 @@ int main(int argc, char **argv)
         std::cout << "Name exactly one log to view (DEBUG, INFO, WARNING or ERROR)" << std::endl;
         return 1;
     }
-    for (int i = 0; i < 4; i++)
+    int i = 0;
+    for (i = 0; i < 4; i++)
     {
         if (argv[1] == levels[i])
         {
             level = i;
             break;
         }
+        if (i == 3)
+            level = 5;
     }
     switch (level)
     {
-        case 1:
+        case 0:
             std::cout << "[ " << argv[1] << " ]" << std::endl;
             h.callFunction(0);
             break;
-        case 2:
+        case 1:
             std::cout << "[ " << argv[1] << " ]" << std::endl;
             h.callFunction(1);
             break;
-        case 3:
+        case 2:
             std::cout << "[ " << argv[1] << " ]" << std::endl;
             h.callFunction(2);
             break;
-        case 4:
+        case 3:
             std::cout << "[ " << argv[1] << " ]" << std::endl;
             h.callFunction(3);
             break;
