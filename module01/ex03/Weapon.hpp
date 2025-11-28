@@ -2,7 +2,8 @@
 # define WEAPON_H
 # include <string>
 
-/*do I need to use "const" at the end of for example getType? to tell complier the return is read-only*/
+/*I could ad const at the end of getType declaration to highlight that this function 
+    doesnt alter the class!*/
 
 class Weapon
 {
