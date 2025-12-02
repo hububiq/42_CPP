@@ -25,6 +25,25 @@ Fixed::Fixed(const float value)
 	this->fixedPointNb = roundf(value * (1 << Fixed::fractionalBits));
 }
 
+Fixed::Fixed(const Fixed& other)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = other;
+}
+
+Fixed& Fixed::operator=(const Fixed& other)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &other)
+		this->fixedPointNb = other.getRawbits();
+	return *this;     //reference is returned - reference is alian for an object. therefore we must dereference pointer to get actual object.
+}
+
+int Fixed::getRawbits() const
+{
+	return this->fixedPointNb;
+}
+
 float Fixed::toFloat() const
 {
 	return (float)this->fixedPointNb / (1 << Fixed::fractionalBits);

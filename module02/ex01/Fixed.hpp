@@ -8,14 +8,16 @@ class Fixed
 {
 	private:
 		int					fixedPointNb;
-		const static int	fractionalBits = 8;
+		static const int	fractionalBits = 8;
 	public:
 		Fixed(const int value);
 		Fixed(const float value);
-		//copy constr
-		//copy assignment overload
+		Fixed(const Fixed& other);
+		Fixed& operator=(const Fixed& other);
+		//std::ostream& operator<<(std::ostream& out, const );
 		Fixed();
 		~Fixed();
+		int getRawbits() const;
 		float toFloat() const;
 		int toInt() const;
 };
