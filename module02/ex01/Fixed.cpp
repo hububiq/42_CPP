@@ -1,7 +1,5 @@
 #include "Fixed.hpp"
 
-//add copy constructor and copy assignment overload
-
 Fixed:: Fixed()
 {
 	std::cout << "Deafult constructor called" << std::endl;
@@ -18,7 +16,7 @@ Fixed::Fixed(const int value)
 	this->fixedPointNb = value << Fixed::fractionalBits;
 }
 
-/*MUST NOT BITSHIFT FLOATS!!!*/
+/*MUST NOT BITSHIFT FLOATS!!! they dont consist of straight values but stem from formula*/
 Fixed::Fixed(const float value)
 {
 	std::cout << "Float constructor called" << std::endl;
@@ -31,12 +29,24 @@ Fixed::Fixed(const Fixed& other)
 	*this = other;
 }
 
+/*//reference is returned - reference is alias for an object. 
+// therefore we must dereference pointer to get actual object.*/
 Fixed& Fixed::operator=(const Fixed& other)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
 		this->fixedPointNb = other.getRawbits();
-	return *this;     //reference is returned - reference is alian for an object. therefore we must dereference pointer to get actual object.
+	return *this;
+}
+
+/*CAN'T BELONG TO FIXED CLASS
+FIRST ARGUMENT IS AN OUT STREAM. SECOND IS OTHER OBJECT.
+OPERATOR OVERLOADS BELONGING TO CLASS HAVE ONE HIDDEN ARGUMENT 'THIS'
+AND THE OTHER WHATEVER TYPE*/
+std::ostream& operator<<(std::ostream& out, const Fixed& src)
+{
+	out << src.toFloat();
+	return (out);
 }
 
 int Fixed::getRawbits() const
