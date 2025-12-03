@@ -22,6 +22,7 @@ Fixed::Fixed(const Fixed& other)
 
 /*reference is returned - reference is alias for an object. 
  therefore we must dereference pointer to get actual object.*/
+
 Fixed& Fixed::operator=(const Fixed& other)
 {
 	if (this != &other)
@@ -33,6 +34,7 @@ Fixed& Fixed::operator=(const Fixed& other)
 FIRST ARGUMENT IS AN OUT STREAM. SECOND IS OTHER OBJECT.
 OPERATOR OVERLOADS BELONGING TO CLASS HAVE ONE HIDDEN ARGUMENT 'THIS'
 AND THE OTHER WHATEVER TYPE, SO ONLY 1 ARGUMENT*/
+
 std::ostream& operator<<(std::ostream& out, const Fixed& src)
 {
 	out << src.toFloat();
@@ -86,6 +88,7 @@ bool Fixed::operator!=(const Fixed& other) const
 /*	need to reverse from fixed point back to normal value (int,float)
 	safest to do it IS with float, to prevent destroyed values on float
 	it will also handle integer	*/
+
 Fixed Fixed::operator+(const Fixed& other) const
 {
 	return Fixed(this->toFloat() + other.toFloat());
@@ -93,7 +96,7 @@ Fixed Fixed::operator+(const Fixed& other) const
 
 Fixed Fixed::operator-(const Fixed& other) const
 {
-	return Fixed(this->toFloat() - other.toFloat());
+	return Fixed(this->toFloat() - other.toFloat());  //return value Fixed() is using constructor on the fly to create object to be instantly altered inside
 }
 
 Fixed Fixed::operator*(const Fixed& other) const
@@ -121,8 +124,8 @@ Fixed& Fixed::operator--()
 /*post in- and decrementation hold special 'int' inside the brackets
  incidacting POST- operation
  no reference in return because it takes copy, add/substract and vanish!
- returns old value - copy
- no suitable for chaining */
+ returns old value - copy. no suitable for chaining */
+
 Fixed Fixed::operator++(int)
 {
 	Fixed temp = *this;
@@ -138,6 +141,35 @@ Fixed Fixed::operator--(int)
 	this->fixedPointNb--;
 	return temp;
 }
+
+Fixed& Fixed::min(Fixed& a, Fixed& b)
+{
+	if (a < b)
+		return a;
+	return b;
+}
+
+Fixed& Fixed::max(Fixed& a, Fixed& b)
+{
+	if (a > b)
+		return a;
+	return b;
+}
+
+const Fixed& Fixed::min(Fixed const& a, Fixed const& b)
+{
+	if (a < b)
+		return a;
+	return b;
+}
+
+const Fixed& Fixed::max(Fixed const& a, Fixed const& b)
+{
+	if (a > b)
+		return a;
+	return b;
+}
+
 //////////////////////////////////////////////// ex02 
 
 int Fixed::getRawbits() const
