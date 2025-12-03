@@ -11,8 +11,11 @@ int main()
     std::cout << a << std::endl;                    //value is still here, will vanish after closing bracket
     std::cout << b << std::endl;
     std::cout << Fixed::max(a, b) << std::endl;
-
     std::cout << Fixed::min(15, 2) << std::endl;    //changing literal integers to temporary objects on the fly (with constructor)
+    Fixed c(15);
+    Fixed d(5);
+    std::cout << Fixed::max(d, c) << std::endl;
+    std::cout << Fixed::min(15, 2) << std::endl;
     return 0;
 }
 

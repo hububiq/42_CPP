@@ -144,6 +144,7 @@ Fixed Fixed::operator--(int)
 
 Fixed& Fixed::min(Fixed& a, Fixed& b)
 {
+	std::cout << "without const" << std::endl;
 	if (a < b)
 		return a;
 	return b;
@@ -151,6 +152,7 @@ Fixed& Fixed::min(Fixed& a, Fixed& b)
 
 Fixed& Fixed::max(Fixed& a, Fixed& b)
 {
+	std::cout << "without const" << std::endl;
 	if (a > b)
 		return a;
 	return b;
