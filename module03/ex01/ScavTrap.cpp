@@ -18,10 +18,7 @@ ScavTrap::ScavTrap(const std::string& name): ClapTrap(name)
 
 ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other) //also chaining
 {
-    this->_name = other._name;
-    this->_hitPoints = other._hitPoints;
-    this->_attackDamage = other._attackDamage;
-    this->_energyPoints = other._energyPoints;
+    //would copy only Child specific members. Rest is copied automatically.
     std::cout << "ScavTrap copy constructor called" << std::endl;
 }
 
