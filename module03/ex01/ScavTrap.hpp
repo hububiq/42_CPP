@@ -12,6 +12,9 @@ class ScavTrap: public ClapTrap
         ~ScavTrap();
 
         void guardGate();
+        void attack(const std::string& target);
+        //void beRepaired(unsigned int amount); first I overwritten to change the output to ScavTrap
+        //void takeDamage(unsigned int amount);
 };
 
 #endif 

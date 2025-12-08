@@ -14,8 +14,8 @@ int main()
     // b.beRepaired(1);
 
     ScavTrap a;
-    ScavTrap b("Bobek");
-    ScavTrap c;
+    ScavTrap b("Bolek");
+    ScavTrap c("Lolek");
     c = b;
     c.attack("Victim");
     c.takeDamage(50);
