@@ -1,24 +1,14 @@
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main()
 {
-    ClapTrap f("ostatni");
-    ScavTrap d("Skaw");
-    FragTrap a("Tkowalsk");
-    FragTrap b("Lolek");
-    FragTrap c(b);
+    DiamondTrap a("dodo");
+    DiamondTrap b(a);
+    //ScavTrap c("skaw");
 
-    a.takeDamage(40);
-    a.takeDamage(40);
-    a.takeDamage(40);
-    a.takeDamage(40);
-    a.attack("Bonker");
-    d.attack("Bonker2");
-    f.attack("Bonker3");
-    a.highFivesGuys();
-    d.guardGate();
-    f = b;
-    f.attack("Bonkers3");
-
+    DiamondTrap c = b;
+    a.attack("lolekmatolek");
+    //c.whoAmI();
+    a.whoAmI();
     return 0;
 }

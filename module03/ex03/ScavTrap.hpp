@@ -2,7 +2,7 @@
 # define SCAVTRAP_H
 # include "ClapTrap.hpp"
 
-class ScavTrap: public ClapTrap
+class ScavTrap: virtual public ClapTrap
 {
     public:
         ScavTrap();
@@ -13,7 +13,7 @@ class ScavTrap: public ClapTrap
 
         void guardGate();
         void attack(const std::string& target);
-        //void beRepaired(unsigned int amount); first I overwritten to change the output to ScavTrap
+        //void beRepaired(unsigned int amount); first I overwritten to change the output message to ScavTrap
         //void takeDamage(unsigned int amount);
 };
 
