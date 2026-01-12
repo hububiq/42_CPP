@@ -1,8 +1,8 @@
 CC = c++
 NAME = polymorphism
-INCLUDES = .hpp
+INCLUDES = Animal.hpp
 FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp
+SRC = Animal.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 RM = rm -f 
 
