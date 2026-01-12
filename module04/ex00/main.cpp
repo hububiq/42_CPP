@@ -1,6 +1,11 @@
-#include ""
+#include "Animal.hpp"
 
 int main()
 {
-    return 0;
+	Animal* a;
+
+	a = new Animal();
+	a->makeSound();
+	delete a;
+	return 0;
 }
