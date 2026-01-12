@@ -14,6 +14,7 @@ class Animal
 		virtual ~Animal();		//destructor also needs to be virtual for polymorphism
 	
 	virtual void makeSound(); 	//virtual for derived objects
+	virtual void getType();     //also need virtual. otherwise randomname is printed 
 };
 
 #endif 
