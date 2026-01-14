@@ -7,8 +7,10 @@
 /* 
    AAnimal* a = new AAnimal();
    trying to instantiate it, compilers withold this action. 
-   makeSound = 0; its pure method and class is abstract. 
-   nevertheless, children are inheriting operational method. 
+ 
+   main takeaway from that exercise: if: virtual void makeSound() = 0 - this is pure method. 
+   that means class is abstract and cant be instatiated, contrary to inheriting classes.
+   they inherit operational method. 
 */
 
 int main()
