@@ -7,7 +7,7 @@ Dog::Dog(): _type("Dog")
 	std::cout << "And Dog's private Brain allocated" << std::endl;
 }
 
-Dog::Dog(const Dog& other): Animal(other)
+Dog::Dog(const Dog& other): AAnimal(other)
 {
 	std::cout << "Dog copy constructor called" << std::endl;
 	this->_type = other._type;
