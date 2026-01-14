@@ -1,8 +1,8 @@
 CC = c++
-NAME = WorldOnFire
-INCLUDES = Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
+NAME = abstract
+INCLUDES = AAnimal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
 FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp main.cpp
+SRC = AAnimal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 RM = rm -f 
 

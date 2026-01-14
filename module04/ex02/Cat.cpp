@@ -1,5 +1,5 @@
 #include "Cat.hpp"
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 
 Cat::Cat(): _type("Cat")
@@ -9,7 +9,7 @@ Cat::Cat(): _type("Cat")
 	std::cout << "And Cat's private Brain allocated" << std::endl;
 }
 
-Cat::Cat(const Cat& other): Animal(other) //do I have to built it manually first? YES, without it its logically broken, only defaultr contructor is called.
+Cat::Cat(const Cat& other): AAnimal(other) //do I have to built it manually first? YES, without it its logically broken, only defaultr contructor is called.
 {
 	std::cout << "Cat copy constructor called" << std::endl;
 	this->_type = other._type;
