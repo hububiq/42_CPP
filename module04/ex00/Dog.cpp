@@ -1,7 +1,8 @@
 #include "Dog.hpp"
 
-Dog::Dog(): _type("Dog")
+Dog::Dog()
 {
+	_type = "Dog";
 	std::cout << "Dog default constructor called" << std::endl;
 }
 
@@ -21,11 +22,6 @@ Dog& Dog::operator=(const Dog& other)
 void Dog::makeSound() const
 {
 	std::cout << "Woof Woof" << std::endl;
-}
-
-std::string Dog::getType() const
-{
-	return this->_type;
 }
 
 Dog::~Dog()

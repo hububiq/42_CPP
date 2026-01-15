@@ -7,8 +7,6 @@ class Cat: public AAnimal
 {
 	private:
 		Brain* _brain;
-	protected: 
-		std::string _type;
 	public:
 		Cat();
 		Cat(const Cat& other);
@@ -16,7 +14,6 @@ class Cat: public AAnimal
 		virtual ~Cat();
 		
 	virtual void makeSound() const;
-	virtual std::string getType() const;
 };
 
 #endif

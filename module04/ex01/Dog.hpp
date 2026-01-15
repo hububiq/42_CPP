@@ -7,8 +7,6 @@ class Dog: public Animal
 {
 	private:
 		Brain* _brain;
-	protected:
-		std::string _type;
 	public:
 		Dog();
 		Dog(const Dog& other);
@@ -16,7 +14,6 @@ class Dog: public Animal
 		virtual ~Dog();
 	
 	virtual void makeSound() const;
-	virtual std::string getType() const;
 };
 
 #endif
