@@ -8,9 +8,12 @@
    AAnimal* a = new AAnimal();
    trying to instantiate it, compilers withold this action. 
  
-   main takeaway from that exercise: if: virtual void makeSound() = 0 - this is pure method. 
+   main takeaways from that exercise: 
+   if: virtual void makeSound() = 0 - this is pure method. 
    that means class is abstract and cant be instatiated, contrary to inheriting classes.
-   they inherit operational method. 
+   they inherit operational method.
+   only base class needs to have all methods and variable. derived class shouldnt. also can't initialiste with list.
+   simply in constructor body.
 */
 
 int main()

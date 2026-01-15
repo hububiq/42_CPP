@@ -1,10 +1,10 @@
 #include "Dog.hpp"
 
-Dog::Dog(): _type("Dog")
+Dog::Dog()
 {
+	_type = "Dog";
 	std::cout << "Dog default constructor called" << std::endl;
 	this->_brain = new Brain();
-	std::cout << "And Dog's private Brain allocated" << std::endl;
 }
 
 Dog::Dog(const Dog& other): Animal(other)
@@ -25,11 +25,6 @@ Dog& Dog::operator=(const Dog& other)
 void Dog::makeSound() const
 {
 	std::cout << "Woof Woof" << std::endl;
-}
-
-std::string Dog::getType() const
-{
-	return this->_type;
 }
 
 Dog::~Dog()

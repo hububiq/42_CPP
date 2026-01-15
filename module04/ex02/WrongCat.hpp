@@ -4,8 +4,6 @@
 
 class WrongCat: public WrongAnimal
 {
-	protected: 
-		std::string _type;
 	public:
 		WrongCat();
 		WrongCat(const WrongCat& other);
@@ -13,7 +11,6 @@ class WrongCat: public WrongAnimal
 		virtual ~WrongCat();
 		
 	void makeSound() const;
-	std::string getType() const;
 };
 
 #endif

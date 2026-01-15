@@ -2,11 +2,11 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-Cat::Cat(): _type("Cat")
+Cat::Cat()
 {
+	_type = "Cat";
 	std::cout << "Cat default constructor called" << std::endl;
 	this->_brain = new Brain();
-	std::cout << "And Cat's private Brain allocated" << std::endl;
 }
 
 Cat::Cat(const Cat& other): Animal(other) //do I have to built it manually first? YES, without it its logically broken, only defaultr contructor is called.
@@ -28,11 +28,6 @@ Cat& Cat::operator=(const Cat& other)
 void Cat::makeSound() const
 {
 	std::cout << "Moew meow" << std::endl;
-}
-
-std::string Cat::getType() const
-{
-	return this->_type;
 }
 
 Cat::~Cat()
