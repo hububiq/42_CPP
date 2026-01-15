@@ -13,7 +13,7 @@
 
 int main()
 {
-	Animal* arr[20];
+	const Animal* arr[20];
 
 	for (int i = 0; i < 10; i++)
 		arr[i] = new Dog();
