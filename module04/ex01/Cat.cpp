@@ -25,14 +25,14 @@ Cat& Cat::operator=(const Cat& other)
 	return *this;
 }
 
-void Cat::makeSound()
+void Cat::makeSound() const
 {
 	std::cout << "Moew meow" << std::endl;
 }
 
-void Cat::getType()
+std::string Cat::getType() const
 {
-	std::cout << this->_type << std::endl;
+	return this->_type;
 }
 
 Cat::~Cat()
