@@ -19,14 +19,14 @@ WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other)
 	return *this;
 }
 
-void WrongAnimal::makeSound()
+void WrongAnimal::makeSound() const
 {
 	std::cout << "Making undefined WrongAnimal sound" << std::endl;
 }
 
-void WrongAnimal::getType()
+std::string WrongAnimal::getType() const
 {
-	std::cout << this->_type << std::endl;
+	return this->_type;
 }
 
 WrongAnimal::~WrongAnimal()

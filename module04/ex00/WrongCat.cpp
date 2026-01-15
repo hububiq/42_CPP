@@ -20,14 +20,14 @@ WrongCat& WrongCat::operator=(const WrongCat& other)
 	return *this;
 }
 
-void WrongCat::makeSound()
+void WrongCat::makeSound() const
 {
 	std::cout << "Moew meow" << std::endl;
 }
 
-void WrongCat::getType()
+std::string WrongCat::getType() const
 {
-	std::cout << this->_type << std::endl;
+	return this->_type;
 }
 
 WrongCat::~WrongCat()
