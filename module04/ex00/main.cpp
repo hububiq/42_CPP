@@ -6,10 +6,10 @@
 
 int main()
 {
-	Animal* a;
+	const Animal* a;
 	//Animal* b; - without virtual is making undefined sound even if I call Cat() constructor (compiler takes the class type only)
-	Animal* b;
-	Animal* c;
+	const Animal* b;
+	const Animal* c;
 	WrongAnimal* f;
 	WrongAnimal* g;
 
