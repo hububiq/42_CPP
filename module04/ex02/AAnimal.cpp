@@ -19,14 +19,14 @@ AAnimal& AAnimal::operator=(const AAnimal& other)
 	return *this;
 }
 
-void AAnimal::makeSound()
+void AAnimal::makeSound() const
 {
 	std::cout << "Making undefined animal sound" << std::endl;
 }
 
-void AAnimal::getType()
+std::string AAnimal::getType() const
 {
-	std::cout << this->_type << std::endl;
+	return this->_type;
 }
 
 AAnimal::~AAnimal()

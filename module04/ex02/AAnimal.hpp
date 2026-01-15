@@ -13,8 +13,8 @@ class AAnimal
 		AAnimal& operator=(const AAnimal& other);
 		virtual ~AAnimal();		//destructor also needs to be virtual for polymorphism
 	
-	virtual void makeSound() = 0; 	//virtual for derived objects
-	virtual void getType();     //also need virtual. otherwise randomname is printed 
+	virtual void makeSound() const = 0; 	//virtual for derived objects
+	virtual std::string getType() const;     //also need virtual. otherwise randomname is printed 
 };
 
 #endif 

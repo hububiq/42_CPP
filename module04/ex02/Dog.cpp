@@ -22,14 +22,14 @@ Dog& Dog::operator=(const Dog& other)
 	return *this;
 }
 
-void Dog::makeSound()
+void Dog::makeSound() const
 {
 	std::cout << "Woof Woof" << std::endl;
 }
 
-void Dog::getType()
+std::string Dog::getType() const
 {
-	std::cout << this->_type << std::endl;
+	return this->_type;
 }
 
 Dog::~Dog()
