@@ -1,6 +1,7 @@
 #ifndef IMATERIASOURCE_HPP
 # define IMATERIASOURCE_HPP
 # include <string>
+# include "AMateria.hpp"  //or just forward declaration?
 
 /* light, no variables attributes, separate header
 other classes dont know how MateriaSource work. they only know interface

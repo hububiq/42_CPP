@@ -14,9 +14,9 @@ class AMateria
         AMateria(const AMateria& other);
         AMateria& operator=(const AMateria& other);
         virtual ~AMateria();
-        std::string const& getType() const; //Returns the materia type    no virtual, does exactle the same thing in dervied classes. returns address to the variable (reference) - standard getter behaviour
-    virtual AMateria* clone() const = 0; //both must be in derived class 
-    virtual void use(ICharacter& target); // <<<<<< TO IMPLEMENT
+        std::string const& getType() const; //Returns the materia type    no virtual, does exactly the same thing in dervied classes. returns address to the variable (reference) - standard getter behaviour
+    virtual AMateria* clone() const = 0; //both virtuals must be in derived class 
+    virtual void use(ICharacter& target);
 };
 
 #endif

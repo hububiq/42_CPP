@@ -18,7 +18,6 @@ AMateria* Ice::clone() const
 {
     AMateria* cl = new Ice();
     return cl;
-    
 }
 
 void Ice::use(ICharacter& target) //why do I need target??
