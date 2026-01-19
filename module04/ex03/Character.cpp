@@ -3,26 +3,38 @@
 
 Character::Character() {}
 
-Character::Character(std::string& name): _name(name) {}
-
-Character::Character(const Character& other)
+Character::Character(std::string& name): _name(name)
 {
-    this->_name = other._name;
-    for(int i = 0; i < 4; i++)
-        delete this->_inventory[i];
-    for(i = 0; i < 4; i++)
-        this->_inventory[i] = other._inventory[i];
+     for (int i = 0; i < 4; i++)
+        this->_inventory[i] = NULL;
 }
 
-Character& operator=(const Character* other)
+Character::Character(const Character& other): _name(other._name)
+{
+    for (int i = 0; i < 4; i++)
+        this->_inventory[i] = NULL;
+    for(i = 0; i < 4; i++)
+    {
+        if (other._inventory[i])
+            this->_inventory[i] = other._inventory[i]->clone();
+    }
+}
+
+Character& operator=(const Character& other)
 {
     if (this != &other)
     {
         this->_name = other._name;
         for(int i = 0; i < 4; i++)
-            delete this->_inventory[i];
+        {
+            if (this->_inventory[i])
+                delete this->_inventory[i]; //should also be NULLed?
+        }
         for(int i = 0; i < 4; i++)
-            this->_inventory[i] = other._inventory[i];
+        {
+            if (other._inventory[i])
+                this->_inventory[i] = other._inventory[i]->clone();
+        }
     }
     return *this;
 }
@@ -34,23 +46,33 @@ std::string const& Character::getName() const
 
 void Character::equip(AMateria* m)
 {
-    for(int i = 0; i < 4; i++)
+    if (!m)  //always safe check!!!
+        return ;
+    for (int i = 0; i < 4; i++)
     {
         if (!this->_inventory[i])
+        {
             this->_inventory[i] = m;
+            return ;
+        }
     }
+    //when inventory is full. Deletion belongs to main.
+    std::cout << "Inventory is full" << std::endl;
 }
 
 void Character::unequip(int idx)
 {
-    if (!this->_inventory[idx])
+    if (!this->_inventory[idx] || idx < 0 || idx > 3)
         return ;
-    //create variables and save Materias to them to later deletion by deconstructor.
+    std::string temp_type = this->_inventory[idx]->_type;
+    this->_inventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-
+    if (idx < 0 || idx > 3 || !this->_inventory[idx])
+        return ;
+    this->_inventory[idx]->use(target); //going inside inventory under particular index and using this Materia member function use(). amazin.
 }
 
 Character::~Character()
@@ -60,5 +82,5 @@ Character::~Character()
         if (this->_inventory[i])
             delete this->_inventory[i];
     }
-    delete [] this->_inventory;
+    //delete [] this->_inventory; illegal here, delete [] is for "new()" operator!
 }
