@@ -1,5 +1,7 @@
 #include "AMateria.hpp"
 
+/* voiding to keep _type unchanged. because copying ice to cure and vice versa doesnt make sense. it destroy logic. */
+
 AMateria::AMateria() {}
 
 AMateria::AMateria(std::string const& type): _type(type) {}
@@ -7,25 +9,22 @@ AMateria::AMateria(std::string const& type): _type(type) {}
 AMateria::AMateria(const AMateria& other)
 {
     (void)other;
-    //this->_type = other._type;
 }
 
 AMateria& AMateria::operator=(const AMateria& other)
 {
-    // if (this != &other)
-    //     this->_type = other._type;
     (void)other;
     return *this;
 }
 
-std::string const& getType() const
+std::string const& AMateria::getType() const
 {
     return this->_type;
 }
 
-void use(ICharacter& target)
+void AMateria::use(ICharacter& target)
 {
-
+    (void)target;
 }
 
 AMateria::~AMateria() {}
