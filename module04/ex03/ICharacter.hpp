@@ -1,11 +1,14 @@
 #ifndef ICHARACTER_HPP
 # define ICHARACTER_HPP
 # include <string>
+# include "AMateria.hpp"
 
 /* 
     !!! important note !!!
     INTERFACE always needs virtual deconstructor 
 */
+class AMateria;
+
 class ICharacter
 {
     public:

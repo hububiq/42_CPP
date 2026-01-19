@@ -1,16 +1,12 @@
 #include "Ice.hpp"
 
-Ice::Ice(): _type("ice") {}
+Ice::Ice(): AMateria("ice") {}
 
-Ice::Ice(const Ice& other): AMateria(other)
-{
-    this->_type = other._type;
-}
+Ice::Ice(const Ice& other): AMateria(other) {}
 
 Ice& Ice::operator=(const Ice& other)
 {
-    if (this != &other)
-        this->_type = other._type;
+    (void)other;
     return *this;
 }
 
@@ -20,9 +16,14 @@ AMateria* Ice::clone() const
     return cl;
 }
 
-void Ice::use(ICharacter& target) //why do I need target??
+void Ice::use(ICharacter& target)
 {
-    std::cout << "* shoots and ice bolt at " << this->getType() << " *" << std::endl;
+    std::cout << "* shoots and ice bolt at " << target.getName() << " *" << std::endl;
+}
+
+std::string Ice::getName()
+{
+    return this->_name;
 }
 
 Ice::~Ice() {}

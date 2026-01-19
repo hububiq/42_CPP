@@ -2,7 +2,7 @@ CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = bonus
 INCLUDES = AMateria.hpp IMateriaSource.hpp MateriaSource.hpp ICharacter.hpp Cure.hpp Ice.hpp Character.hpp
-SRC = AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
+SRC = AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 RM = rm -f
 
