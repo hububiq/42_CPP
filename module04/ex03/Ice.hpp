@@ -1,5 +1,5 @@
-#ifndef CURE_HPP
-# define CURE_HPP
+#ifndef ICE_HPP
+# define ICE_HPP
 # include "AMateria.hpp"
 
 class Ice: public AMateria
@@ -10,9 +10,8 @@ class Ice: public AMateria
         Ice& operator=(const Ice& other);
         ~Ice();
 
-        std::string getName();
         virtual AMateria* clone() const;
         virtual void use(ICharacter& target);
 };
 
-#endif;
+#endif

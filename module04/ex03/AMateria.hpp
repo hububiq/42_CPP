@@ -2,8 +2,9 @@
 # define AMATERIA_HPP
 # include <string>
 # include <iostream>
-# include "ICharacter.hpp"
+# include "Character.hpp"
 
+class ICharacter;
 class AMateria
 {
     protected:
@@ -15,7 +16,7 @@ class AMateria
         AMateria& operator=(const AMateria& other);
         virtual ~AMateria();
         std::string const& getType() const; //Returns the materia type    no virtual, does exactly the same thing in dervied classes. returns address to the variable (reference) - standard getter behaviour
-    virtual AMateria* clone() const = 0; //both virtuals must be in derived class 
+    virtual AMateria* clone() const = 0;
     virtual void use(ICharacter& target);
 };
 

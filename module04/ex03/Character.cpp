@@ -1,5 +1,6 @@
 #include "Character.hpp"
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 Character::Character(): _name("randomname")
 {
@@ -50,7 +51,7 @@ Character& Character::operator=(const Character& other)
 
 std::string const& Character::getName() const
 {
-    return this->_name;
+	return this->_name;
 }
 
 void Character::equip(AMateria* m)
