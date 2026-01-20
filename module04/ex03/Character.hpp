@@ -11,7 +11,7 @@ class AMateria;
 
 class Character: public ICharacter
 {
-    private:
+    protected:
         std::string _name;
         AMateria* _inventory[4];
     public:
@@ -19,6 +19,11 @@ class Character: public ICharacter
         Character(const std::string& _name);
         Character(const Character& other);
         Character& operator=(const Character& other);
-        ~Character();
-}
+		virtual std::string const& getName() const;
+        virtual void equip(AMateria* m);
+        virtual void unequip(int idx);
+        virtual void use(int idx, ICharacter& target);
+        virtual ~Character();
+};
+
 #endif 
