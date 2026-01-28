@@ -13,21 +13,24 @@
 
 int main()
 {
-	const Animal* arr[20];
+	// const Animal* arr[20];
 
-	for (int i = 0; i < 10; i++)
-		arr[i] = new Dog();
-	for (int i = 10; i < 20; i++)
-		arr[i] = new Cat();
-	for (int i = 0; i < 20; i++)
-		delete arr[i];
-	std::cout << std::endl;
+	// for (int i = 0; i < 10; i++)
+	// 	arr[i] = new Dog();
+	// for (int i = 10; i < 20; i++)
+	// 	arr[i] = new Cat();
+	// for (int i = 0; i < 20; i++)
+	// 	delete arr[i];
+	// std::cout << std::endl;
 
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << std::endl;
+	// const Animal* j = new Dog();
+	// const Animal* i = new Cat();
+	// std::cout << std::endl;
 
-	delete j;
-	delete i;
+	Dog k;
+	Dog j(k);
+
+	// delete j;
+	// delete i;
 	return 0;
 }

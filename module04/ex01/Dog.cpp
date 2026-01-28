@@ -14,10 +14,12 @@ Dog::Dog(const Dog& other): Animal(other)
 	this->_type = other._type;
 
 	Brain* brain = new Brain();
-	brain = other._brain;
+	brain = NULL;
+	*brain = *other._brain;
 	delete this->_brain;
-	this->_brain = other._brain;
-	//*this->_brain = *other._brain;
+	*this->_brain = *brain;
+	delete brain;
+	//*this->_brain = *other._brain; shallow!
 }
 Dog& Dog::operator=(const Dog& other)
 {
