@@ -14,7 +14,7 @@ Cat::Cat(const Cat& other): Animal(other) //do I have to built it manually first
 	std::cout << "Cat copy constructor called" << std::endl;
 	this->_type = other._type;
 	this->_brain = new Brain();
-	this->_brain = other._brain;
+	*this->_brain = *other._brain;
 }
 
 Cat& Cat::operator=(const Cat& other)

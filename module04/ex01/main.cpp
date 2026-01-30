@@ -13,6 +13,15 @@
    At the end --- delete [] arr is not enough. it only deletes stack array, not content allocated with "new"
 */
 
+/*
+	order of creation: 
+	Animal -> Dog -> Brain  ----- Brain() is happening in the body of constructor 
+	Animal -> Brain -> Dog  -----   if it was in initialisaton list
+
+	order of deconstruction
+	Dog -> Brain -> Animal  ----- delete _brain is in Dog deconstructor, therefore it appears first.
+*/
+
 int main()
 {
 	const Animal* arr[20];
