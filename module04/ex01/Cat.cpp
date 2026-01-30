@@ -13,6 +13,7 @@ Cat::Cat(const Cat& other): Animal(other) //do I have to built it manually first
 {
 	std::cout << "Cat copy constructor called" << std::endl;
 	this->_type = other._type;
+	this->_brain = new Brain();
 	this->_brain = other._brain;
 }
 
@@ -20,8 +21,12 @@ Cat& Cat::operator=(const Cat& other)
 {
 	std::cout << "Cat assignment operator called" << std::endl;
 	if (this != &other)
+	{
 		this->_type = other._type;
-	*this->_brain = *other._brain;
+		Brain* temp = new Brain(*other._brain);
+		delete this->_brain;
+		this->_brain = temp;
+	}
 	return *this;
 }
 
@@ -33,5 +38,5 @@ void Cat::makeSound() const
 Cat::~Cat()
 {
 	std::cout << "Cat destructor called" << std::endl;
-	delete this->_brain; 
+	delete _brain; 
 }

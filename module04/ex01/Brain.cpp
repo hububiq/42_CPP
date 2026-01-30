@@ -8,7 +8,7 @@ Brain::Brain()
 Brain::Brain(const Brain& other)
 {
 	std::cout << "Brain copy constructor called" << std::endl; 
-	for (int i = 0; i < 100; i++) //copying ideas[100] array.
+	for (int i = 0; i < 100; i++) //copying ideas[100] array. no need to do deep copy, C++ handling automatically
 		this->ideas[i] = other.ideas[i];
 }
 
