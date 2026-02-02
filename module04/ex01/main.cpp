@@ -3,6 +3,7 @@
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include <cstdio>
 
 /* 
    This exercise showing the concept of Composition.
@@ -24,13 +25,22 @@
 
 int main()
 {
-	const Animal* arr[20];
+	int size = 6;
+	const Animal* arr[size];
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < size / 2; i++)
+	{
+		printf("%d\n", i);
 		arr[i] = new Dog();
-	for (int i = 10; i < 20; i++)
+	}
+	for (int i = (size / 2); i < size; i++)
+	{
+		printf("%d\n", i);
 		arr[i] = new Cat();
-	for (int i = 0; i < 20; i++)
+	}
+	std::cout << arr[2]->getType() << "-------" << std::endl;
+	std::cout << arr[4]->getType() << "-------" << std::endl;
+	for (int i = 0; i < size; i++)
 		delete arr[i];
 	std::cout << std::endl;
 
