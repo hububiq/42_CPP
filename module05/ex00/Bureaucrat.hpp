@@ -13,18 +13,18 @@ class Bureaucrat
 	public:
 		class MyException: public std::exception
 		{
-		    const char* what();
+		    virtual const char* what();
 		};
 		Bureaucrat();
-		Bureaucrat(int grade);
+		Bureaucrat(const int grade);
 		Bureaucrat(const Bureaucrat& other);
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
 		std::string GradeTooHighException();
 		std::string GradeTooLowException();
-		std::string getName();
-		int getGrade();
+		std::string getName() const;
+		int getGrade() const;
 		void setGrade(int x);
 		void incrGrade();
 		void decrGrade();
