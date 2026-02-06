@@ -1,8 +1,8 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(): _name("Baba") {}
+Bureaucrat::Bureaucrat(): _name("Baba"), _grade(1) {}
 
-Bureaucrat::Bureaucrat(const int grade)
+Bureaucrat::Bureaucrat(int grade): _name("Babka"), _grade(grade)
 {
 	try
 	{
@@ -17,7 +17,7 @@ Bureaucrat::Bureaucrat(const int grade)
 	}
 		
 }
-Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name)
+Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name), _grade(other._grade)
 {
 	this->_grade = other._grade; 
 }
