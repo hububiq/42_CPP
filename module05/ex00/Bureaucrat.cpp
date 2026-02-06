@@ -2,7 +2,7 @@
 
 Bureaucrat::Bureaucrat(): _name("Baba"), _grade(1) {}
 
-Bureaucrat::Bureaucrat(int grade): _name("Babka"), _grade(grade)
+Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(grade)
 {
 	try
 	{
@@ -13,9 +13,8 @@ Bureaucrat::Bureaucrat(int grade): _name("Babka"), _grade(grade)
 	}
 	catch (Bureaucrat::MyException::exception& a)
 	{
-			std::cout << a.what() << std::endl;
+		std::cout << a.what() << std::endl;
 	}
-		
 }
 Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name), _grade(other._grade)
 {
@@ -32,19 +31,29 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 	return *this;
 }
 
-std::string Bureaucrat::getName()
+std::string Bureaucrat::getName() const
 {
 	return this->_name;
 }
 
-int Bureaucrat::getGrade()
+int Bureaucrat::getGrade() const 
 {
 	return this->_grade;
 }
 
 void Bureaucrat::setGrade(int x)
 {
-	this->_grade = x;
+	try
+	{
+		if (x > 150 || x < 1)
+			throw Bureaucrat::MyException::exception();
+		else
+			this->_grade = x;
+	}
+	catch (Bureaucrat::MyException::exception& e)
+	{
+		std::cout << "Trying to setGrade but: " << e.what() << "-=------Kupa--------" << std::endl;
+	}
 }
 
 void Bureaucrat::incrGrade()
@@ -61,19 +70,25 @@ void Bureaucrat::decrGrade()
 std::string Bureaucrat::GradeTooHighException()
 {
 	std::cout << "Grade is above range" << std::endl;
-	return "Grade is above range";
+	return "";
 }
 
 std::string Bureaucrat::GradeTooLowException()
 {
 	std::cout << "Grade is below range" << std::endl;
-	return "Grade is below range";
+	return "";
 }
 
 const char* Bureaucrat::MyException::what() 
 {
 	std::cout << "This is custom exception" << std::endl;
-	return "This is custom exception!";
+	return "";
+}
+
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& other)
+{
+	out << other.getName() << ", bureaucrat grade " << other.getGrade() << std::endl;
+	return out;
 }
 
 Bureaucrat::~Bureaucrat() {}
