@@ -10,19 +10,19 @@ class Bureaucrat
 	private:
 		const std::string _name;
 		int _grade;
+	public:
 		class MyException: public std::exception
 		{
-			const char* what();
+			virtual const char* what();
 		};
-	public:
 		Bureaucrat();
 		Bureaucrat(const int grade);
 		Bureaucrat(const Bureaucrat& other);
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		void GradeTooHighException();
-		void GradeTooLowException();
+		std::string GradeTooHighException();
+		std::string GradeTooLowException();
 		std::string getName();
 		int getGrade();
 		void setGrade(int x);
