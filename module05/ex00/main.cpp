@@ -15,12 +15,14 @@ int main()
 	try
 	{
 		Bureaucrat f(150);
+		std::cout << f.getName() << std::endl;
 		f.decrGrade();
+		std::cout << f.getGrade() << std::endl;
 		if (f.getGrade() > 150)
 			throw(Bureaucrat::MyException::exception());
 	}
 	catch (Bureaucrat::MyException::exception& e)
 	{
-		std::cout << e.what() << "--Kupa--------" << std::endl;
+		std::cout << "bababa" << e.what() << "--Kupa--------" << std::endl;
 	}
 };

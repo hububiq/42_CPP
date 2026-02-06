@@ -13,10 +13,10 @@ class Bureaucrat
 	public:
 		class MyException: public std::exception
 		{
-			virtual const char* what();
+		    const char* what();
 		};
 		Bureaucrat();
-		Bureaucrat(const int grade);
+		Bureaucrat(int grade);
 		Bureaucrat(const Bureaucrat& other);
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
