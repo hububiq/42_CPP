@@ -10,16 +10,17 @@ int main()
 	std::cout << c.getName() << std::endl;
 	std::cout << d.getName() << std::endl;
 
-	Bureaucrat e(200);
-	Bureaucrat f(148);
+	//Bureaucrat e(200);
+	//Bureaucrat f(150);
 	try
 	{
+		Bureaucrat f(150);
 		f.decrGrade();
 		if (f.getGrade() > 150)
-			throw MyException::exception();
+			throw(Bureaucrat::MyException::exception());
 	}
-	catch (MyException::exception& a)
+	catch (Bureaucrat::MyException::exception& e)
 	{
-		std::cout << a.what() << std::endl;
+		std::cout << e.what() << "--Kupa--------" << std::endl;
 	}
 };
