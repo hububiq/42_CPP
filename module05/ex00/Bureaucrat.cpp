@@ -7,13 +7,13 @@ Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(grade)
 	try
 	{
 		if (grade < 1)
-			throw(Bureaucrat::GradeTooHighException());
+			throw Bureaucrat::GradeTooHighException();
 		else if (grade > 150)
-			throw (Bureaucrat::GradeTooLowException());
+			throw Bureaucrat::GradeTooLowException();
 	}
 	catch (Bureaucrat::MyException::exception& a)
 	{
-		std::cout << a.what() << std::endl;
+		std::cout << a.what() << std::endl; //somehow its not overriden
 	}
 }
 Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name), _grade(other._grade)
@@ -23,7 +23,6 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name), _grade(othe
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 {
-	//this->_name = other._name;
 	if (this != &other)
 	{
 		this->_grade = other._grade;
@@ -52,20 +51,31 @@ void Bureaucrat::setGrade(int x)
 	}
 	catch (Bureaucrat::MyException::exception& e)
 	{
-		std::cout << "Trying to setGrade but: " << e.what() << "-=------Kupa--------" << std::endl;
+		std::cout << "Trying to setGrade but: " << e.what() << std::endl;
 	}
 }
 
-void Bureaucrat::incrGrade()
+void Bureaucrat::incrGrade() //try{}catch{}???
 {
 	std::cout << "Increasing" << std::endl;
 	this->_grade--;
 }
 
-void Bureaucrat::decrGrade()
+void Bureaucrat::decrGrade() //try{}catch{}???
 {
 	std::cout << "Decreasing" << std::endl;
-	this->_grade++;
+	try
+	{
+		this->_grade++;
+		if (this->_grade < 1)
+			throw Bureaucrat::GradeTooHighException();
+		else if (this->_grade > 150)
+			throw Bureaucrat::GradeTooLowException();
+	}
+	catch (Bureaucrat::MyException::exception& a)
+	{
+		std::cout << a.what() << std::endl;
+	}
 }
 std::string Bureaucrat::GradeTooHighException()
 {
@@ -79,7 +89,7 @@ std::string Bureaucrat::GradeTooLowException()
 	return "";
 }
 
-const char* Bureaucrat::MyException::what() 
+const char* Bureaucrat::MyException::what() const throw()
 {
 	std::cout << "This is custom exception" << std::endl;
 	return "";
@@ -87,7 +97,7 @@ const char* Bureaucrat::MyException::what()
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& other)
 {
-	out << other.getName() << ", bureaucrat grade " << other.getGrade() << std::endl;
+	out << other.getName() << ", bureaucrat grade " << other.getGrade() << ". " << std::endl;
 	return out;
 }
 

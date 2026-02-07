@@ -13,7 +13,7 @@ class Bureaucrat
 	public:
 		class MyException: public std::exception
 		{
-		    virtual const char* what();
+			const char* what() const throw();
 		};
 		Bureaucrat();
 		Bureaucrat(const int grade);
