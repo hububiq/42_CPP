@@ -2,7 +2,9 @@
 #include <ostream>
 
 /*TO DO
+-problems with overriding what(). printing error message from std::exception
 -decrementing shouldn't save value if its inside try{}catch{} exception, shouldnt it
+-to resolve - core dumped
 */
 int main()
 {
@@ -15,13 +17,24 @@ int main()
 	// std::cout << d.getName() << std::endl;
 
 	//Bureaucrat e(200);
-	Bureaucrat f(1);
-	f.incrGrade();
-		//std::cout << f.getName() << std::endl;
-		//f.setGrade(160);
-		//std::cout << f.getGrade() << std::endl;
-		//f.decrGrade();
-		//std::cout << f.getGrade() << std::endl;
-	std::cout << "Grade value is: " << f.getGrade() << std::endl;
-	//std::cout << f;
+	//Bureaucrat f(150);
+	// try
+	// {
+	// 	Bureaucrat f(150);
+	// 	std::cout << f.getName() << std::endl;
+	// 	f.setGrade(160);
+	// 	std::cout << f.getGrade() << std::endl;
+	// 	f.decrGrade();
+	// 	std::cout << f.getGrade() << std::endl;
+	// 	if (f.getGrade() > 150 || f.getGrade() < 1)
+	// 		throw Bureaucrat::MyException::exception();
+	// }
+	// catch (Bureaucrat::MyException::exception& e)
+	// {
+	// 	std::cout << "bababa " << e.what() << "--Kupa--------" << std::endl; //why its not overriden?
+	// }
+	Bureaucrat f(150);
+	f.decrGrade();
+	f.getGrade();
+	std::cout << f;
 };

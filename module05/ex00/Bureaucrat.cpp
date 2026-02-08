@@ -11,9 +11,9 @@ Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(grade)
 		else if (grade > 150)
 			throw Bureaucrat::GradeTooLowException();
 	}
-	catch (std::exception& e)
+	catch (Bureaucrat::MyException::exception& a)
 	{
-		std::cout << e.what() << std::endl; //somehow its not overriden
+		std::cout << a.what() << std::endl; //somehow its not overriden
 	}
 }
 Bureaucrat::Bureaucrat(const Bureaucrat& other): _name(other._name), _grade(other._grade)
@@ -44,55 +44,55 @@ void Bureaucrat::setGrade(int x)
 {
 	try
 	{
-		if (x > 150)
-			throw Bureaucrat::GradeTooLowException();
-		else if (x < 1)
-			throw Bureaucrat::GradeTooHighException();
+		if (x > 150 || x < 1)
+			throw Bureaucrat::MyException::exception();
 		else
 			this->_grade = x;
 	}
-	catch (std::exception& e)
+	catch (Bureaucrat::MyException::exception& e)
 	{
 		std::cout << "Trying to setGrade but: " << e.what() << std::endl;
 	}
 }
 
-void Bureaucrat::incrGrade()
+void Bureaucrat::incrGrade() //try{}catch{}???
 {
-	std::cout << "Trying to incraese" << std::endl;
-	try
-	{
-		int temp = this->_grade;
-		if (temp - 1 < 1)
-			throw Bureaucrat::GradeTooHighException();
-		else if (temp - 1 > 150)
-			throw Bureaucrat::GradeTooLowException();
-		else
-			this->_grade--;
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	std::cout << "Increasing" << std::endl;
+	this->_grade--;
 }
 
-void Bureaucrat::decrGrade()
+void Bureaucrat::decrGrade() //try{}catch{}???
 {
-	std::cout << "Tryig to decrease" << std::endl;
+	std::cout << "Decreasing" << std::endl;
 	try
 	{
-		int temp = this->_grade;
-		if (temp + 1 < 1)
+		this->_grade++;
+		if (this->_grade < 1)
 			throw Bureaucrat::GradeTooHighException();
-		else if (temp + 1 > 150)
+		else if (this->_grade > 150)
 			throw Bureaucrat::GradeTooLowException();
-		else
-			this->_grade++;
 	}
-	catch (std::exception& e)
+	catch (Bureaucrat::MyException::exception& a)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << a.what() << std::endl;
 	}
+}
+std::string Bureaucrat::GradeTooHighException()
+{
+	std::cout << "Grade is above range" << std::endl;
+	return "";
+}
+
+std::string Bureaucrat::GradeTooLowException()
+{
+	std::cout << "Grade is below range" << std::endl;
+	return "";
+}
+
+const char* Bureaucrat::MyException::what() const throw()
+{
+	std::cout << "This is custom exception" << std::endl;
+	return "";
 }
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& other)
