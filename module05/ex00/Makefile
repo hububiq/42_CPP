@@ -2,7 +2,7 @@ CC = c++
 NAME = bureaucrat
 FLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES = Bureaucrat.hpp
-SRC = Bureaucrat.cpp main.cpp
+SRC = Bureaucrat.cpp GradeTooLowException.cpp GradeTooHighException.cpp main.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 
