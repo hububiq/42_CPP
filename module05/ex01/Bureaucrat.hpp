@@ -5,6 +5,8 @@
 # include <ostream> 
 # include <exception>
 
+class Form;
+
 class Bureaucrat
 {
 	private:
@@ -32,6 +34,7 @@ class Bureaucrat
 		void setGrade(int x);
 		void incrGrade();
 		void decrGrade();
+		void signForm(Form& other);
 
 };
 

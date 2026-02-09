@@ -24,6 +24,7 @@ class Form
 				virtual const char* what() const throw();
 		};
 		Form();
+		Form(int x);
 		Form(const Form& other);
 		Form& operator=(const Form& other);
 		~Form();
@@ -33,7 +34,6 @@ class Form
 		int getSignGrade() const;
 		int getExecGrade() const;
 		void beSigned(Bureaucrat& other);
-		void signForm();
 };
 
 std::ostream& operator<<(std::ostream& out, const Form& other);

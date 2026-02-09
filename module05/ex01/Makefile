@@ -1,5 +1,5 @@
 CC = c++
-NAME = bureaucrat
+NAME = maggots
 FLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES = Bureaucrat.hpp Form.hpp
 SRC = Bureaucrat.cpp Form.cpp main.cpp

@@ -1,6 +1,8 @@
 #include "Form.hpp"
 
-Form::Form(): _signed(false), _signGrade(0), _execGrade(0) {}
+Form::Form(): _name("whatever"), _signed(false), _signGrade(0), _execGrade(0) {}
+
+Form::Form(int x): _name("whatever"), _signed(false), _signGrade(x), _execGrade(0) {}
 
 Form::Form(const Form& other): 
 	_name(other._name),
@@ -56,7 +58,9 @@ void Form::beSigned(Bureaucrat& other)
 		if (other.getGrade() > this->_signGrade)
 			throw Form::GradeTooLowException();
 		else
+		{
 			this->_signed = true;
+		}
 	}
 	catch (std::exception& e)
 	{
@@ -64,16 +68,9 @@ void Form::beSigned(Bureaucrat& other)
 	}
 }
 
-void Form::signForm()
-{
-	this->beSigned(); 
-	//pass Bureaucrat param?
-	//print signing messages
-}
-
 std::ostream& operator<<(std::ostream& out, const Form& other)
 {
-	out << "\nGetting name info and grades " << other.getName() << ", "
+	out << "Getting name info and grades: " << other.getName() << ", "
 		<< other.getSign() << ", " << other.getSignGrade() << ", " << other.getExecGrade() << std::endl;
 	return out;
 }
