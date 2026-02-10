@@ -2,7 +2,7 @@
 # define FORM_HPP
 # include <iostream>
 # include <string>
-# include <ostream>
+# include <fstream>
 # include <exception>
 # include "Bureaucrat.hpp"
 
@@ -30,11 +30,13 @@ class AForm
 		AForm& operator=(const AForm& other);
 		~AForm();
 
-		virtual std::string getName() const = 0;
-		virtual bool getSign() const = 0;
-		virtual int getSignGrade() const = 0;
-		virtual int getExecGrade() const = 0;
-		virtual void beSigned(Bureaucrat& other) = 0;
+		std::string getName() const;
+		bool getSign() const;
+		int getSignGrade() const;
+		int getExecGrade() const;
+		void beSigned(Bureaucrat& other);
+
+		virtual void execute(Bureaucrat const& executor) const = 0;
 };
 
 std::ostream& operator<<(std::ostream& out, const AForm& other);

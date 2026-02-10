@@ -1,8 +1,11 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
-#include <ostream>
+#include "ShrubberyCreationForm.hpp"
 
 int main()
 {
+	ShrubberyCreationForm b;
+	Bureaucrat c;
 
+	b.execute(c);
 };

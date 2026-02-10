@@ -3,6 +3,7 @@
 # include <fstream>
 # include <string>
 # include "AForm.hpp"
+# include <exception>
 
 class ShrubberyCreationForm: public AForm
 {
@@ -15,11 +16,14 @@ class ShrubberyCreationForm: public AForm
 		ShrubberyCreationForm& operator=(ShrubberyCreationForm& other);
 		~ShrubberyCreationForm();
 
-		std::string getName() const;
-		bool getSign() const;
-		int getSignGrade() const;
-		int getExecGrade() const;
-		void beSigned(Bureaucrat& other);
+		// std::string getName() const;
+		// bool getSign() const;
+		// int getSignGrade() const;
+		// int getExecGrade() const;
+		// void beSigned(Bureaucrat& other);
+
+		std::string getTarget();
+		void execute(Bureaucrat const& executor) const; //returning fstream is no-go. just void.
 };
 
 //	creates _target_shrubbery file and writes some ASCII tree inside it
