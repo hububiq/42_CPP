@@ -3,8 +3,8 @@ NAME = maggots
 FLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp \
 			PresidentialPardonForm.hpp RobotomyRequestForm.hpp
-SRC = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp \
-		RobotomyRequestForm.cpp main.cpp
+SRC = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp  \
+		 main.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 
