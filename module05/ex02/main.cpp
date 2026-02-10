@@ -4,7 +4,7 @@
 
 int main()
 {
-	ShrubberyCreationForm b;
+	ShrubberyCreationForm b("Pochlastac sie mozna");
 	Bureaucrat c;
 
 	b.execute(c);

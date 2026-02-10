@@ -1,6 +1,6 @@
 #ifndef SHRUBBERY_CREATION_FORM_HPP
 # define SHRUBBERY_CREATION_FORM_HPP
-# include <fstream>
+# include <fstream>  //includes fstream, ofstream, ifstream, all.
 # include <string>
 # include "AForm.hpp"
 # include <exception>
@@ -17,16 +17,15 @@ class ShrubberyCreationForm: public AForm
 		~ShrubberyCreationForm();
 
 		// std::string getName() const;
-		// bool getSign() const;
-		// int getSignGrade() const;
-		// int getExecGrade() const;
+		bool getSign() const;
+		int getSignGrade() const;
+		int getExecGrade() const;
 		// void beSigned(Bureaucrat& other);
 
 		std::string getTarget();
 		void execute(Bureaucrat const& executor) const; //returning fstream is no-go. just void.
 };
 
-//	creates _target_shrubbery file and writes some ASCII tree inside it
 //	add getter for _target
 
 #endif

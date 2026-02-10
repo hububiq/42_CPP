@@ -21,24 +21,24 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm& other)
 //consider which one of belows to (void) and which to adjust
 //resolve inaccessibility
 
-std::string RobotomyRequestForm::getName() const
-{
-	return this->_name;
-}
+// std::string RobotomyRequestForm::getName() const
+// {
+// 	return this->_name;
+// }
 
 bool RobotomyRequestForm::getSign() const
 {
 	return this->_signed;
 }
 
-int RobotomyRequestForm::getSignGrade() const
-{
-	return this->_signGrade;
-}
+// int RobotomyRequestForm::getSignGrade() const
+// {
+// 	return this->_signGrade;
+// }
 
-int RobotomyRequestForm::getExecGrade() const
-{
-	return this->_execGrade;
-}
+// int RobotomyRequestForm::getExecGrade() const
+// {
+// 	return this->_execGrade;
+// }
 
 RobotomyRequestForm::~RobotomyRequestForm() {}
