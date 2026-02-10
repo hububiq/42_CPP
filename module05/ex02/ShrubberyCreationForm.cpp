@@ -1,13 +1,18 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(): AForm()
-{
-	std::cout << "Creating shrub" << std::endl;
-}
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(), _target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): 
+	AForm(), 
+	_target(target),
+	_signGrade(145),
+	_execGrade(137) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other): AForm()
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other):
+	AForm(),
+	_name(other._name),
+	_signGrade(other._signGrade),
+	_execGrade(other._execGrade)
 {
 	this->_target = other._target;
 }
@@ -29,20 +34,20 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm& o
 // 	return this->_name;
 // }
 
-// bool ShrubberyCreationForm::getSign() const
-// {
-// 	return this->_signed;
-// }
+bool ShrubberyCreationForm::getSign() const
+{
+	return this->_signed;
+}
 
-// int ShrubberyCreationForm::getSignGrade() const
-// {
-// 	return this->_signGrade;
-// }
+int ShrubberyCreationForm::getSignGrade() const
+{
+	return this->_signGrade;
+}
 
-// int ShrubberyCreationForm::getExecGrade() const
-// {
-// 	return this->_execGrade;
-// }
+int ShrubberyCreationForm::getExecGrade() const
+{
+	return this->_execGrade;
+}
 
 //
 
@@ -53,10 +58,33 @@ std::string ShrubberyCreationForm::getTarget()
 
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
-	(void)executor;
-	std::string filename = this->_target + "_shrubbery";
-	std::ofstream out("filename.txt");
-	out << "Kupa dupa." << std::endl;
+	try
+	{
+		if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= this->getGrade() && this->getSign() == true)
+		{
+			std::string filename = this->_target + "_shrubbery";
+			std::ofstream out(filename.c_str());  //c_Str() converting to C-style pointer enforced by -std=C++98
+			out << "      _     " << std::endl;
+			out << "     / \\      " << std::endl;
+			out << "    /, ,\\     " << std::endl;
+			out << "   /  ,  \\    " << std::endl;
+			out << "  /   _  ,\\  " << std::endl;
+			out << " / ,/| |\\  \\  " << std::endl;
+			out << "/__/ |_| \\__\\ " << std::endl;
+			out << "     / \\      " << std::endl;
+			out << "    /, ,\\     " << std::endl;
+			out << "   /  ,  \\    " << std::endl;
+			out << "  /   _  ,\\  " << std::endl;
+			out << " / ,/| |\\  \\  " << std::endl;
+			out << "/__/ |_| \\__\\ " << std::endl;
+		}
+		else
+			throw ShrubberyCreationForm::GradeTooLowException();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl; 
+	}
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
