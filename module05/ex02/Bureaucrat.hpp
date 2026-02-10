@@ -5,7 +5,7 @@
 # include <ostream> 
 # include <exception>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -34,7 +34,7 @@ class Bureaucrat
 		void setGrade(int x);
 		void incrGrade();
 		void decrGrade();
-		void signForm(Form& other);
+		void signForm(AForm& other);
 
 };
 
