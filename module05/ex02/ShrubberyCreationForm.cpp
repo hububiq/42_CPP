@@ -2,17 +2,9 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm(): AForm() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): 
-	AForm(), 
-	_target(target),
-	_signGrade(145),
-	_execGrade(137) {}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(target, 145, 137) {} //!!!!
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other):
-	AForm(),
-	_name(other._name),
-	_signGrade(other._signGrade),
-	_execGrade(other._execGrade)
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other): AForm(other)
 {
 	this->_target = other._target;
 }
@@ -34,20 +26,6 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm& o
 // 	return this->_name;
 // }
 
-bool ShrubberyCreationForm::getSign() const
-{
-	return this->_signed;
-}
-
-int ShrubberyCreationForm::getSignGrade() const
-{
-	return this->_signGrade;
-}
-
-int ShrubberyCreationForm::getExecGrade() const
-{
-	return this->_execGrade;
-}
 
 //
 
@@ -60,7 +38,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
 	try
 	{
-		if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= this->getGrade() && this->getSign() == true)
+		if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade() && this->getSign() == true)
 		{
 			std::string filename = this->_target + "_shrubbery";
 			std::ofstream out(filename.c_str());  //c_Str() converting to C-style pointer enforced by -std=C++98
