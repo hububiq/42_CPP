@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat(): _name("Baba"), _grade(1) {}
 
@@ -104,7 +104,7 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
     return "Grade is too high";
 }
 
-void Bureaucrat::signForm(Form& other)
+void Bureaucrat::signForm(AForm& other)
 {
 	try
 	{
