@@ -25,7 +25,7 @@ class AForm
 				virtual const char* what() const throw();
 		};
 		AForm();
-		AForm(int x);
+		AForm(std::string name, int singG, int execG);
 		AForm(const AForm& other);
 		AForm& operator=(const AForm& other);
 		~AForm();
