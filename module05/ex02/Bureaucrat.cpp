@@ -1,9 +1,10 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 Bureaucrat::Bureaucrat(): _name("Baba"), _grade(1) {}
 
-Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(0)
+Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(grade)
 {
 	try
 	{
@@ -96,7 +97,7 @@ void Bureaucrat::decrGrade()
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low low";
+	return "Grade is too low";
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
@@ -118,6 +119,22 @@ void Bureaucrat::signForm(AForm& other)
 	{
 		std::cout << this->getName() << " couldn't sign "
 		<< other.getName() << " because " << e.what() << "." << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(AForm const& form) const
+{
+	try
+	{
+		form.execute(*this); //can't instantiate but can pass object of abstract class and use its methods?
+		if (form.getSign())
+			std::cout << this->getName() << " executed " << form.getName() << std::endl;
+		else
+			throw Bureaucrat::GradeTooLowException();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << " to execute." << std::endl;
 	}
 }
 
