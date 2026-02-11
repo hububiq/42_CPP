@@ -6,7 +6,6 @@
 # include <exception>
 
 class AForm;
-
 class Bureaucrat
 {
 	private:
@@ -35,6 +34,7 @@ class Bureaucrat
 		void incrGrade();
 		void decrGrade();
 		void signForm(AForm& other);
+		void executeForm(AForm const& form) const;
 
 };
 

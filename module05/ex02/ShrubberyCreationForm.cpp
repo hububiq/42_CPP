@@ -2,7 +2,7 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm(): AForm() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(target, 145, 137) {} //!!!!
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(target, 145, 137), _target(target) {} //!!!!
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other): AForm(other)
 {
@@ -28,6 +28,11 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm& o
 
 
 //
+
+void ShrubberyCreationForm::setTarget(std::string target)
+{
+	this->_target = target;
+}
 
 std::string ShrubberyCreationForm::getTarget()
 {
@@ -63,7 +68,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() << std::endl; 
+		std::cout << e.what() << " to execute." << std::endl; 
 	}
 }
 
