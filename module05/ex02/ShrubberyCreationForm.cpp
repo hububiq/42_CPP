@@ -38,7 +38,9 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
 	try
 	{
-		if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade() && this->getSign() == true)
+		if (this->getSign() == false)
+			throw ShrubberyCreationForm::GradeTooLowException();
+		else if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade())
 		{
 			std::string filename = this->_target + "_shrubbery";
 			std::ofstream out(filename.c_str());  //c_Str() converting to C-style pointer enforced by -std=C++98

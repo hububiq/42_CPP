@@ -2,7 +2,7 @@
 
 AForm::AForm(): _name("whatever"), _signed(false), _signGrade(0), _execGrade(0) {}
 
-AForm::AForm(int x): _name("whatever"), _signed(false), _signGrade(x), _execGrade(0) {}
+AForm::AForm(std::string name, int signG, int execG): _name(name), _signed(false), _signGrade(signG), _execGrade(execG) {}
 
 AForm::AForm(const AForm& other): 
 	_name(other._name),
@@ -43,7 +43,7 @@ int AForm::getExecGrade() const
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low ";
+	return "Grade is too low";
 }
 
 const char* AForm::GradeTooHighException::what() const throw()
