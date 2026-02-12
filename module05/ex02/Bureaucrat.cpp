@@ -125,25 +125,11 @@ void Bureaucrat::signForm(AForm& other)
 }
 
 void Bureaucrat::executeForm(AForm const& form) const
-{
-	// try
-	// {
-		//form.execute(*this); //can't instantiate but can pass object of abstract class and use its methods?
-		// if (this->_grade < 1)
-		// 	throw Bureaucrat::GradeTooHighException();
-		
-		if (form.execute(*this)) //can't instantiate but can pass object of abstract class and use its methods?
-			std::cout << this->getName() << " executed " << form.getName() << std::endl;
-		else
-			std::cout << this->getName() << " wasn't able to execute " << form.getName() << std::endl;
-
-		// else
-		// 	throw Bureaucrat::GradeTooLowException();
-	// }
-	// catch (std::exception& e)
-	// {
-	// 	std::cout << e.what() << " to execute." << std::endl;
-	// }
+{		
+	if (form.execute(*this)) //can't instantiate but can pass object of abstract class and use its methods?
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	else
+		std::cout << this->getName() << " wasn't able to execute " << form.getName() << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& other)
