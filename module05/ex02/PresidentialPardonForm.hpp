@@ -14,13 +14,9 @@ class PresidentialPardonForm: public AForm
 		PresidentialPardonForm& operator=(PresidentialPardonForm& other);
 		~PresidentialPardonForm();
 
-		std::string getName() const;
-		bool getSign() const;
-		int getSignGrade() const;
-		int getExecGrade() const;
-		void beSigned(Bureaucrat& other);
+		void setTarget(std::string target);
+		std::string getTarget();
+		int execute(Bureaucrat const& executor) const;
 };
-
-//	just adds infomation
 
 #endif

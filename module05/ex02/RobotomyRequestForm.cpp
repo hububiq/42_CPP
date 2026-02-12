@@ -2,9 +2,9 @@
 
 RobotomyRequestForm::RobotomyRequestForm(): AForm() {}
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target): _target(target) {}
+RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm(target, 72, 45), _target(target) {} //base class init first!
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm& other)
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm& other): AForm(other)
 {
 	this->_target = other._target;
 }
@@ -18,27 +18,38 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm& other)
 	return *this;
 }
 
-//consider which one of belows to (void) and which to adjust
-//resolve inaccessibility
-
-// std::string RobotomyRequestForm::getName() const
-// {
-// 	return this->_name;
-// }
-
-bool RobotomyRequestForm::getSign() const
+void RobotomyRequestForm::setTarget(std::string target)
 {
-	return this->_signed;
+	this->_target = target;
 }
 
-// int RobotomyRequestForm::getSignGrade() const
-// {
-// 	return this->_signGrade;
-// }
+std::string RobotomyRequestForm::getTarget()
+{
+	return this->_target;
+}
 
-// int RobotomyRequestForm::getExecGrade() const
-// {
-// 	return this->_execGrade;
-// }
+int RobotomyRequestForm::execute(Bureaucrat const& executor) const
+{
+	try
+	{
+		if (this->getSign() == false && executor.getGrade() > 150)
+			throw RobotomyRequestForm::GradeTooLowException();
+		else if (this->getSign() == false && executor.getGrade() < 1)
+			throw RobotomyRequestForm::GradeTooHighException();
+		else if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade())
+		{
+			std::cout << "<drilling noises> " << this->_target << " has been robotomized successfully 50% of the time "
+					<< std::endl;
+			return 1;
+		}
+		else
+			throw RobotomyRequestForm::GradeTooLowException();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << " to execute. Robotomy failed." << std::endl; 
+	}
+	return 0;
+}
 
 RobotomyRequestForm::~RobotomyRequestForm() {}

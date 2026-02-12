@@ -2,9 +2,9 @@
 
 PresidentialPardonForm::PresidentialPardonForm(): AForm() {}
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target): _target(target) {}
+PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm(target, 25, 5), _target(target) {}
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm& other)
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm& other): AForm(other)
 {
 	this->_target = other._target;
 }
@@ -18,27 +18,38 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(PresidentialPardonForm
 	return *this;
 }
 
-//consider which one of belows to (void) and which to adjust
-//resolve inaccessibility
-
-std::string PresidentialPardonForm::getName() const
+void PresidentialPardonForm::setTarget(std::string target)
 {
-	return this->_name;
+	this->_target = target;
 }
 
-bool PresidentialPardonForm::getSign() const
+std::string PresidentialPardonForm::getTarget()
 {
-	return this->_signed;
+	return this->_target;
 }
 
-int PresidentialPardonForm::getSignGrade() const
+int PresidentialPardonForm::execute(Bureaucrat const& executor) const
 {
-	return this->_signGrade;
-}
-
-int PresidentialPardonForm::getExecGrade() const
-{
-	return this->_execGrade;
+	try
+	{
+		if (this->getSign() == false && executor.getGrade() > 150)
+			throw PresidentialPardonForm::GradeTooLowException();
+		else if (this->getSign() == false && executor.getGrade() < 1)
+			throw PresidentialPardonForm::GradeTooHighException();
+		else if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade())
+		{
+			std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox "
+					<< std::endl;
+			return 1;
+		}
+		else
+			throw PresidentialPardonForm::GradeTooLowException();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << " to execute. Pardoning failed." << std::endl; 
+	}
+	return 0;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm() {}

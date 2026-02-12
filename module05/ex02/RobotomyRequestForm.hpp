@@ -1,5 +1,5 @@
-#ifndef ROBOTOMY_REQUEST_FORM.HPP
-# define ROBOTOMY_REQUEST_FORM.HPP
+#ifndef ROBOTOMY_REQUEST_FORM_HPP
+# define ROBOTOMY_REQUEST_FORM_HPP
 # include "AForm.hpp"
 # include <string>
 # include <exception>
@@ -15,13 +15,9 @@ class RobotomyRequestForm: public AForm
 		RobotomyRequestForm& operator=(RobotomyRequestForm& other);
 		~RobotomyRequestForm();
 
-		std::string getName() const;
-		bool getSign() const;
-		int getSignGrade() const;
-		int getExecGrade() const;
-		void beSigned(Bureaucrat& other);
+		void setTarget(std::string target);
+		std::string getTarget();
+		int execute(Bureaucrat const& executor) const;
 };
 
-//	adds function making "drilling" noises and try{} catch{} 
-//	add getter for _target
 #endif
