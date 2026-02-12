@@ -18,7 +18,7 @@ class ShrubberyCreationForm: public AForm
 
 		void setTarget(std::string target);
 		std::string getTarget();
-		void execute(Bureaucrat const& executor) const; //returning fstream is no-go. just void.
+		int execute(Bureaucrat const& executor) const; //returning fstream is no-go. just void.
 };
 
 #endif
