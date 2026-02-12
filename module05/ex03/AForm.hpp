@@ -37,7 +37,7 @@ class AForm
 		void beSigned(Bureaucrat& other);
 
 		virtual int execute(Bureaucrat const& executor) const = 0;
-		virtual std::string getTarget() const = 0; //getTarget has to be here for passing AForm as concrete classes.
+		virtual std::string getTarget() const = 0;
 };
 
 std::ostream& operator<<(std::ostream& out, const AForm& other);
