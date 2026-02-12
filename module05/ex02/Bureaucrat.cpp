@@ -2,9 +2,9 @@
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-Bureaucrat::Bureaucrat(): _name("Baba"), _grade(1) {}
+Bureaucrat::Bureaucrat(): _name("Baba"), _grade(150) {}
 
-Bureaucrat::Bureaucrat(int grade): _name("Baba"), _grade(grade)
+Bureaucrat::Bureaucrat(int grade): _name("Baba")
 {
 	try
 	{
@@ -110,6 +110,8 @@ void Bureaucrat::signForm(AForm& other)
 	try
 	{
 		other.beSigned(*this);
+		if (this->_grade < 1)
+			throw Bureaucrat::GradeTooHighException();
 		if (other.getSign())
 			std::cout << this->getName() << " signed " << other.getName() << std::endl;
 		else
@@ -124,18 +126,24 @@ void Bureaucrat::signForm(AForm& other)
 
 void Bureaucrat::executeForm(AForm const& form) const
 {
-	try
-	{
-		form.execute(*this); //can't instantiate but can pass object of abstract class and use its methods?
-		if (form.getSign())
+	// try
+	// {
+		//form.execute(*this); //can't instantiate but can pass object of abstract class and use its methods?
+		// if (this->_grade < 1)
+		// 	throw Bureaucrat::GradeTooHighException();
+		
+		if (form.execute(*this)) //can't instantiate but can pass object of abstract class and use its methods?
 			std::cout << this->getName() << " executed " << form.getName() << std::endl;
 		else
-			throw Bureaucrat::GradeTooLowException();
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what() << " to execute." << std::endl;
-	}
+			std::cout << this->getName() << " wasn't able to execute " << form.getName() << std::endl;
+
+		// else
+		// 	throw Bureaucrat::GradeTooLowException();
+	// }
+	// catch (std::exception& e)
+	// {
+	// 	std::cout << e.what() << " to execute." << std::endl;
+	// }
 }
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& other)

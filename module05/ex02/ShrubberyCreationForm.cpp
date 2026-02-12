@@ -2,7 +2,7 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm(): AForm() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(target, 145, 137), _target(target) {} //!!!!
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm(target, 145, 137), _target(target) {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& other): AForm(other)
 {
@@ -18,17 +18,6 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm& o
 	return *this;
 }
 
-//consider which one of belows to (void) and which to adjust
-//resolve inaccessibility
-
-// std::string ShrubberyCreationForm::getName() const
-// {
-// 	return this->_name;
-// }
-
-
-//
-
 void ShrubberyCreationForm::setTarget(std::string target)
 {
 	this->_target = target;
@@ -39,12 +28,14 @@ std::string ShrubberyCreationForm::getTarget()
 	return this->_target;
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
+int ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
 	try
 	{
-		if (this->getSign() == false)
+		if (this->getSign() == false && executor.getGrade() > 150)
 			throw ShrubberyCreationForm::GradeTooLowException();
+		else if (this->getSign() == false && executor.getGrade() < 1)
+			throw ShrubberyCreationForm::GradeTooHighException();
 		else if (this->getSignGrade() >= executor.getGrade() && this->getExecGrade() >= executor.getGrade())
 		{
 			std::string filename = this->_target + "_shrubbery";
@@ -62,6 +53,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 			out << "  /   _  ,\\  " << std::endl;
 			out << " / ,/| |\\  \\  " << std::endl;
 			out << "/__/ |_| \\__\\ " << std::endl;
+			return 1;
 		}
 		else
 			throw ShrubberyCreationForm::GradeTooLowException();
@@ -70,6 +62,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 	{
 		std::cout << e.what() << " to execute." << std::endl; 
 	}
+	return 0;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
