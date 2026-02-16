@@ -1,8 +1,8 @@
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = types
-INCLUDES = .hpp
-SRC = .cpp
+INCLUDES = ScalarConverter.hpp
+SRC = ScalarConverter.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 RM = -rm -f
 
@@ -11,7 +11,7 @@ all: ${NAME}
 %.o: $.cpp ${INCLUDES}
 	${CC} ${FLAGS} -c $< -o $@
 
-%{NAME}: ${OBJ}
+${NAME}: ${OBJ}
 	${CC} ${FLAGS} $^ -o $@
 
 clean:
