@@ -2,6 +2,9 @@
 # define SCALAR_CONVERTER_HPP
 # include <string>
 # include <iostream>
+# include <cctype>      //for isdigit to be placed in std:: namespace
+# include <limits>      //for infinity?
+# include <iomanip>     //for display of fractions
 
 /*
     Constructors private - to disallow instantiation

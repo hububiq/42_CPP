@@ -17,12 +17,48 @@ ScalarConverter::~ScalarConverter() {}
 
 void ScalarConverter::convert(std::string str)
 {
-    for (int i = 0; i < str.length(); i++)
+    try
     {
-        if (str[i] < 32)
-            std::cout << "Character not printable" << std::endl;
-        std::cout << str[i] << std::endl;
+        if (str.length() == 1 && !std::isdigit(str[0]))
+        {
+            if (str[0] < 32)
+                std::cout << "Non displayable" << std::endl;
+            else
+            {
+                std::cout << "char: " << str[0] << std::endl;
+                std::cout << "int: impossible" << std::endl;
+                std::cout << "float: impossible" << std::endl;
+                std::cout << "double: impossible" << std::endl;
+            }
+        }
+        else 
+        {
+            std::cout << std::fixed << std::setprecision(1);
+            if (int temp = std::stoi(str))
+            {
+                std::cout << "char: " << static_cast<char>(temp) << std::endl;
+                std::cout << "int: " << temp << std::endl;
+                std::cout << "float: " << static_cast<float>(temp) << "f" << std::endl;
+                std::cout << "double: " << static_cast<double>(temp) << std::endl;
+            }
+            else if (int temp = std::stod(str))/* || (int temp = std::stof(str))*/
+            {
+                std::cout << "char: impossible" << std::endl;
+                std::cout << "int: " << static_cast<int>(temp) << std::endl;
+                std::cout << "float: " << static_cast<float>(temp) << "f" << std::endl;
+                std::cout << "double: " << temp << std::endl;
+            }
+            else if (int temp = std::stof(str))
+            {
+                std::cout << "char: impossible" << std::endl;
+                std::cout << "int: " << static_cast<int>(temp) << std::endl;
+                std::cout << "float: " << static_cast<float>(temp) << "f" << std::endl;
+                std::cout << "double: " << temp << std::endl;
+            }
+        }
     }
-    std::cout << std::stoi(str) << std::endl;
-
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }

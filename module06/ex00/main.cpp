@@ -1,7 +1,9 @@
 #include "ScalarConverter.hpp"
 
+//why doesnt work with argv?
+
 int main()
 {
-    ScalarConverter::convert("1");
+    ScalarConverter::convert("b");
     return 0;
 }
