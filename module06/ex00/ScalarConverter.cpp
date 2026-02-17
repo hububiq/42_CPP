@@ -24,19 +24,20 @@ void ScalarConverter::convert(std::string str)
             if (str[0] < 32)
                 std::cout << "Non displayable" << std::endl;
             else
-            {
                 std::cout << "char: " << str[0] << std::endl;
-                std::cout << "int: impossible" << std::endl;
-                std::cout << "float: impossible" << std::endl;
-                std::cout << "double: impossible" << std::endl;
-            }
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible" << std::endl;
+            std::cout << "double: impossible" << std::endl;
         }
         else 
         {
             std::cout << std::fixed << std::setprecision(1);
             if (int temp = std::stoi(str))
             {
-                std::cout << "char: " << static_cast<char>(temp) << std::endl;
+                if (temp > 31 && temp <= 255)
+                    std::cout << "char: " << static_cast<char>(temp) << std::endl;
+                else
+                    std::cout << "char: impossible" << std::endl;
                 std::cout << "int: " << temp << std::endl;
                 std::cout << "float: " << static_cast<float>(temp) << "f" << std::endl;
                 std::cout << "double: " << static_cast<double>(temp) << std::endl;
@@ -57,8 +58,12 @@ void ScalarConverter::convert(std::string str)
             }
         }
     }
-    catch (std::exception& e)
+    catch (std::invalid_argument& e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << "impossible - bad argument" << std::endl;
+    }
+    catch (std::out_of_range& e)
+    {
+        std::cout << "impossible - out of range" << std::endl;
     }
 }
