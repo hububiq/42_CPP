@@ -2,8 +2,8 @@
 
 //why doesnt work with argv?
 
-int main()
+int main(int argc, char **argv)
 {
-    ScalarConverter::convert("-0.42f");
+    ScalarConverter::convert(argv[1]);
     return 0;
 }

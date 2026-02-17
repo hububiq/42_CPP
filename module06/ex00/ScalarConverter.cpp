@@ -17,6 +17,24 @@ ScalarConverter::~ScalarConverter() {}
 
 void ScalarConverter::convert(std::string str)
 {
+    if (str == "+inf" || str == "-inf" || str == "nan")
+    {
+        double d = std::stod(str);
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+        std::cout << "double: " << d << std::endl;
+        return ;
+    }
+    if (str == "+inff" || str == "-inff" || str == "nanf")
+    {
+        float f = std::stof(str);
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: " << f << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(f)<< std::endl;
+        return ;
+    }
     try
     {
         if (str.length() == 1 && !std::isdigit(str[0]))
@@ -43,7 +61,7 @@ void ScalarConverter::convert(std::string str)
                 std::cout << "float: " << temp << "f" << std::endl;
                 std::cout << "double: " << static_cast<double>(temp) << std::endl;
             }
-            else if (str.find('.') != std::string::npos)/* || (int temp = std::stof(str))*/
+            else if (str.find('.') != std::string::npos)
             {
                 double temp = std::stod(str);
                 if (temp > 31 && temp <= 255)
