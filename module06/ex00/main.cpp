@@ -4,6 +4,6 @@
 
 int main()
 {
-    ScalarConverter::convert("b");
+    ScalarConverter::convert("0");
     return 0;
 }
