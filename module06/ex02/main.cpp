@@ -12,69 +12,98 @@ Base* generate(void)
 	std::uniform_int_distribution<int> distribution(1,3);
 	int dice_roll = distribution(generator);
 	std::cout << dice_roll << std::endl;
-	dice_roll = 2;
+	dice_roll = 3; 							//hardcoding random number because it almost certainly generates 1 as first value
+	Base * b;
 	switch (dice_roll)
 	{
 		case 1:
 		{
-			Base* b = new A();
-			return b;
+			b = new A();
+			break;
 		}
 		case 2:
 		{
-			Base* b = new B();
-			return b;
+			b = new B();
+			break;
 		}
 		case 3:
 		{
-			Base* b = new C();
-			return b;
+			b = new C();
+			break;
 		}
 	}
+	return b;
 }
 
-void identify(Base* p) //gonna try to downcasast (horizontal casting)
+//gonna try to downcasast (horizontal casting)
+void identify(Base* p)
 {
+	std::cout << "\n---identify() with pointers---" << std::endl;
 	try
 	{
 		A* d = dynamic_cast<A *>(p);
 		if (d)
 			std::cout << "The random type was class A" << std::endl;
-		else
-			std::cout << "Cannot cast A" << std::endl;
 		B* e = dynamic_cast<B *>(p);
 		if (e)
 			std::cout << "The random type was class B" << std::endl;
-		else
-			std::cout << "Cannot cast B" << std::endl;
 		C* f = dynamic_cast<C *>(p);
 		if (f)
 			std::cout << "The random type was class C" << std::endl;
-		else
-			std::cout << "Cannot cast C" << std::endl;
 	}
-	catch (std::bad_cast& e) //not catching! casting has undefined behaviour? didn't throw anything but should catch error  ???
+	catch (std::bad_cast& e)
 	{
 		std::cout << "Dynamic cast failed" << std::endl;
 	}
 	return ;
 }
 
-// It prints the actual type of the object referenced by p: "A", "B", or "C". Using a pointer
-// inside this function is forbidden
+//catching only reference since can't be NULL-valued. Pointers dont throw error (undefined behaviour)
 void identify(Base& p)
-{}
+{
+	std::cout << "\n---identify() with reference---" << std::endl;
+	try
+	{
+		A& g = dynamic_cast<A &>(p);
+		if (&g)
+			std::cout << "The random type was class A" << std::endl;
+	}
+	catch (std::bad_cast& e)
+	{
+		std::cout << "Dynamic cast with class A failed" << std::endl;
+	}
+	try
+	{
+		B& h = dynamic_cast<B &>(p);
+		if (&h)
+			std::cout << "The random type was class B" << std::endl;
+	}
+	catch (std::bad_cast& e)
+	{
+		std::cout << "Dynamic cast with class B failed" << std::endl;
+	}
+	try
+	{
+		C& i = dynamic_cast<C &>(p);
+		if (&i)
+			std::cout << "The random type was class C" << std::endl;
+	}
+	catch (std::bad_cast& e)
+	{
+		std::cout << "Dynamic cast with class C failed" << std::endl;
+	}
+	return ;
+}
 
 int main()
 {
-	// for (int i = 0; i < 1000; i++)
-	// {
-		Base* randomClass = generate();
-		identify(randomClass);
-		// if (randomClass)
-		// 	delete randomClass;
-	// }
+	Base* randomClass = generate();
+	Base& randomClassRef = *generate();
+	identify(randomClass);
+	identify(randomClassRef);
 	if (randomClass)
 		delete randomClass;
+	if (&randomClassRef)
+	 	delete &randomClassRef;
 	return 0;
 }
