@@ -1,6 +1,6 @@
 #ifndef SERIALIZER_HPP
 # define SERIALIZER_HPP
-# include <cstdint> // or cstdint? (for uintptr_t)
+# include <cstdint> // for uintptr_t
 # include <iostream>
 # include <string>
 
