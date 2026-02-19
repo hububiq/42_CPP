@@ -12,7 +12,7 @@ Base* generate(void)
 	std::uniform_int_distribution<int> distribution(1,3);
 	int dice_roll = distribution(generator);
 	std::cout << dice_roll << std::endl;
-	dice_roll = 3; 							//hardcoding random number because it almost certainly generates 1 as first value
+	//dice_roll = 3; 							//hardcoding random number because it almost certainly generates 1 as first value
 	Base * b;
 	switch (dice_roll)
 	{
@@ -97,6 +97,14 @@ void identify(Base& p)
 
 int main()
 {
+	// std::default_random_engine generator;
+	// std::uniform_int_distribution<int> distribution(1,3);
+	// for (int i = 0; i < 100; i++)
+	// {
+	// 	int dice_roll = distribution(generator);
+	// 	std::cout << dice_roll << std::endl;
+	// };
+	// return 0;
 	Base* randomClass = generate();
 	Base& randomClassRef = *generate();
 	identify(randomClass);

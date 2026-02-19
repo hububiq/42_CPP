@@ -1,7 +1,7 @@
 #include "Serializer.hpp"
 
 /*
-    search about uintptr_t type more,
+	uintptr_t type - reserve enough space to hold literal string of address that pointer is pointing to
 */
 
 int main()
