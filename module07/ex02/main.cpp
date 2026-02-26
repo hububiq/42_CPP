@@ -3,15 +3,15 @@
 
 int main()
 {
-	//int* a = new int(); //default init to 0
+	//int* a = new int(); //default init to 
 	Array<int> b(4);
 	try
 	{
-		std::cout << b.getValue(3) << std::endl;
+		std::cout << b[2] << std::endl;
 	}
-	catch (std::out_of_range& e)
+	catch (std::exception& e)
 	{
-		std::cout << "Index out of range" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
     return 0;
 }
