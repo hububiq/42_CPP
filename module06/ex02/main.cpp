@@ -8,25 +8,26 @@
 
 Base* generate(void)
 {
-	std::default_random_engine generator;
-	std::uniform_int_distribution<int> distribution(1,3);
-	int dice_roll = distribution(generator);
-	std::cout << dice_roll << std::endl;
+	// std::default_random_engine generator;
+	// std::uniform_int_distribution<int> distribution(1,3);
+	// int dice_roll = distribution(generator);
+	// std::cout << dice_roll << std::endl;
 	//dice_roll = 3; 							//hardcoding random number because it almost certainly generates 1 as first value
+
 	Base * b;
-	switch (dice_roll)
+	switch (rand() % 3)
 	{
-		case 1:
+		case 0:
 		{
 			b = new A();
 			break;
 		}
-		case 2:
+		case 1:
 		{
 			b = new B();
 			break;
 		}
-		case 3:
+		case 2:
 		{
 			b = new C();
 			break;
@@ -105,6 +106,7 @@ int main()
 	// 	std::cout << dice_roll << std::endl;
 	// };
 	// return 0;
+	srand(time(NULL));
 	Base* randomClass = generate();
 	Base& randomClassRef = *generate();
 	identify(randomClass);
