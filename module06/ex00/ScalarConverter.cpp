@@ -91,6 +91,6 @@ void ScalarConverter::convert(std::string str)
     }
     catch (std::out_of_range& e)
     {
-        std::cout << "impossible - out of range" << std::endl;
+        std::cout << e.what() << "impossible - out of range" << std::endl;
     }
 }
