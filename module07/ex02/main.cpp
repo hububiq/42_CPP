@@ -7,7 +7,7 @@ int main()
 	Array<int> b(4);
 	try
 	{
-		std::cout << b[2] << std::endl;
+		std::cout << b[5] << std::endl;
 	}
 	catch (std::exception& e)
 	{
