@@ -14,10 +14,10 @@ template <typename T> void print(T& x)
     std::cout << x << std::endl;
 }
 
-/* 
--size - hardcoded and passed as const in main, type is known - int. better to use size_t
--2 typenames. F for function 
-*/
+
+//size - hardcoded and passed as const in main, type is known - int. better to use size_t
+
+//T* arr is somewhat better because its for any type. It decays from int* arr to the first element of the array.
 
 template <typename T, typename F> void iter(T& arr, size_t const size, F func)
 {
