@@ -8,7 +8,7 @@ Array<T>::Array() {}
 template <typename T>
 Array<T>::Array(unsigned int n): _size(n)
 {
-    this->_array = new T(this->_size);
+    this->_array = new T[this->_size]();
 }
 
 template <typename T>
