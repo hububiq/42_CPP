@@ -1,4 +1,4 @@
-CC == c++
+CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = easyfind
 SRC = main.cpp
@@ -17,7 +17,7 @@ ${NAME}: ${OBJ}
 clean:
 	${RM} ${OBJ}
 
-fclean:
+fclean: clean
 	${RM} ${NAME}
 
 re: fclean all
