@@ -2,7 +2,10 @@
 
 Span::Span() {}
 
-Span::Span(unsigned int N): _intValues(N) {}
+Span::Span(unsigned int N): _N(N)
+{
+    this->_intValues.reserve(N);
+}
 
 Span::Span(const Span& other)
 {
@@ -25,7 +28,9 @@ std::vector<int>& Span::getVector()
 
 void Span::addNumber(int val)
 {
-    (this->getVector().push_back(val));
+    if (this->_intValues.end() == this->_N)
+        throw std::exception();
+    this->getVector().push_back(val);
 }
 
 Span::~Span() {}
