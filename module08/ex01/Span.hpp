@@ -3,11 +3,13 @@
 # include <string>
 # include <iostream>
 # include <vector>
+# include <exception>
 
 class Span
 {
     private:
         std::vector<int> _intValues;
+        unsigned int _N;
     public:
         Span();
         Span(unsigned int N);
