@@ -19,6 +19,7 @@ class Span
         ~Span();
 
         void addNumber(int val);
+        void addMultiple(const std::vector<int>& toInsert);
         std::vector<int>& getVector();   //return reference to alter original version
         std::ptrdiff_t shortestSpan();
         std::ptrdiff_t longestSpan();
