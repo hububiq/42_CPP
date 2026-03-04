@@ -4,6 +4,7 @@
 # include <iostream>
 # include <vector>
 # include <stdexcept>
+# include <algorithm>
 
 class Span
 {
@@ -19,8 +20,8 @@ class Span
 
         void addNumber(int val);
         std::vector<int>& getVector();   //return reference to alter original version
-        unsigned int shortestSpan() const;
-        unsigned int longestSpan() const;
+        std::ptrdiff_t shortestSpan();
+        std::ptrdiff_t longestSpan();
 };
 
 #endif
