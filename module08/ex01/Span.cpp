@@ -4,7 +4,7 @@ Span::Span() {}
 
 Span::Span(unsigned int N): _N(N)
 {
-    this->_intValues.reserve(N);
+    this->_intValues.reserve(_N);
 }
 
 Span::Span(const Span& other)
@@ -28,9 +28,21 @@ std::vector<int>& Span::getVector()
 
 void Span::addNumber(int val)
 {
-    if (this->_intValues.end() == this->_N)
-        throw std::exception();
-    this->getVector().push_back(val);
+    std::cout << "Current Size: " << _intValues.size() << " | Max Limit: " << _N << std::endl;
+    if (this->_intValues.size() < this->_N)
+        this->_intValues.push_back(val);
+    else
+        throw std::out_of_range("Can't add more members to vector");
+}
+
+unsigned int Span::shortestSpan() const
+{
+
+}
+
+unsigned int Span::longestSpan() const
+{
+    
 }
 
 Span::~Span() {}

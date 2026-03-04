@@ -3,7 +3,7 @@
 # include <string>
 # include <iostream>
 # include <vector>
-# include <exception>
+# include <stdexcept>
 
 class Span
 {
@@ -19,6 +19,8 @@ class Span
 
         void addNumber(int val);
         std::vector<int>& getVector();   //return reference to alter original version
+        unsigned int shortestSpan() const;
+        unsigned int longestSpan() const;
 };
 
 #endif
