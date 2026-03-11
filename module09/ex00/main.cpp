@@ -1,10 +1,17 @@
 #include "BitcoinExchange.hpp"
 
+// ToFix: still printing out of range values - adjust CONTINUE LINE 52.
+// zero printed first, why?
+// add formatting to output 
 
-// void calculate(std::multimap<std::string, double> priceMap, std::multimap<std::string, double> inFile)
-// {
-// 	return ;
-// }
+void calculate(std::string& valueStr, std::multimap<std::string, double>& priceMap, std::string& date, double& value)
+{
+    value = std::atof(valueStr.c_str()); 												//atof ignoring leading and trailing white char
+	std::multimap<std::string, double>::const_iterator it = priceMap.lower_bound(date); //lower_bound because there might not be exact date
+	if (it != priceMap.end())  															//if iterator is valid
+		std::cout << it->second * value << std::endl;
+	return ;
+}
 
 bool checkLine(std::string line, size_t& indexIn, std::string& valueStr)
 {
@@ -31,7 +38,7 @@ bool checkLine(std::string line, size_t& indexIn, std::string& valueStr)
 	return 0;
 }
 
-std::multimap<std::string, double> processInFile(std::string name)
+std::multimap<std::string, double> processInFile(std::string name, std::multimap<std::string, double>& priceMap)
 {
 	std::string line;
 	std::multimap<std::string, double> inFileMap;
@@ -45,7 +52,8 @@ std::multimap<std::string, double> processInFile(std::string name)
 		std::string valueStr = line.substr(index + 1);
 		if (checkLine(line, index, valueStr))
 			continue;
-		double value = std::atof(valueStr.c_str()); //atof ignoring leading and trailing white char
+		double value = 0;
+		calculate(valueStr, priceMap, date, value);
 		inFileMap.insert(std::make_pair(date, value));
 	}
 	return inFileMap;
@@ -75,23 +83,8 @@ int main(int argc, char **argv)
 	if (!DbFile.is_open())
 		return std::cerr << "Couldn't open such file" << std::endl, -1;
 	std::multimap<std::string, double> priceMap = processDb(DbFile);
-	std::multimap<std::string, double> inFile = processInFile(argv[1]);
-	// calculate(priceMap, inFile);m
+	std::multimap<std::string, double> inFile = processInFile(argv[1], priceMap);
 	// for (std::multimap<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
 		// std::cout << it->first << " " << it->second << std::endl;
-
-	// program uzyje input.txt->second aby przemnozyc wartosc z danej daty z data.csv->second
-	// i wyswietlic na standard output.
-
-	//lowerbound funkcja mapy.
-
-	/* function to pass Map to calculation and input.txt */
-	// std::ifstream file(name.c_str());  //ofstream construction with std::string converted to char *
-	/* for printing function
-	if (index == std::string::npos)
-		{
-			std::cout << "Bad input" << std::endl;
-			continue;
-		}*/
 	return 0;
 }
