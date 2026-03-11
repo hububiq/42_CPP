@@ -2,10 +2,10 @@
 
 //Handle bad input - just date or just value in function responsible for printing 
 
-std::map<std::string, double> processInFile(std::string name)
+std::multimap<std::string, double> processInFile(std::string name)
 {
 	std::string line;
-	std::map<std::string, double> inFileMap;
+	std::multimap<std::string, double> inFileMap;
 	std::ifstream inFile(name.c_str());
 	if (!inFile.is_open())
 		return std::cerr << "Couldn't open input file" << std::endl, inFileMap;
@@ -19,34 +19,33 @@ std::map<std::string, double> processInFile(std::string name)
 			if (value < 0)
 			{
 				throw std::invalid_argument("Error: not a positive number.");
-				inFileMap[date] = value;
+				inFileMap.insert(std::make_pair(date, value));
 				continue;
 			}
 			else if (value > 1000)
 			{
 				throw std::invalid_argument("Error: too large a number.");
-				inFileMap[date] = value;
+				inFileMap.insert(std::make_pair(date, value));
 				continue;
 			}
-			inFileMap[date] = value;
+			inFileMap.insert(std::make_pair(date, value));
 		}
-		catch (std::invalid_argument& e) { std::cout << e.what() << std::endl; continue; }
-		std::cout << inFileMap[date] << std::endl;
+		catch (std::invalid_argument& e) { std::cout << e.what() << std::endl; continue; };
 	}
 	return inFileMap;
 }
 
-std::map<std::string, double> processDb(std::ifstream& Db)
+std::multimap<std::string, double> processDb(std::ifstream& Db)
 {
 	std::string line;
-	std::map<std::string, double> Map;
+	std::multimap<std::string, double> Map;
 
 	while (std::getline(Db, line))
 	{
 		size_t index = line.find(",");
 		std::string date = line.substr(0, index);
 		double price = std::atof(line.substr(index + 1).c_str());
-		Map[date] = price;
+		Map.insert(std::make_pair(date, price));
 	}
 	return Map;
 }
@@ -59,9 +58,9 @@ int main(int argc, char **argv)
 	std::ifstream DbFile("data.csv");
 	if (!DbFile.is_open())
 		return std::cerr << "Couldn't open such file" << std::endl, -1;
-	std::map<std::string, double> priceMap = processDb(DbFile);
-	std::map<std::string, double> inFile = processInFile(argv[1]);
-	for (std::map<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
+	std::multimap<std::string, double> priceMap = processDb(DbFile);
+	std::multimap<std::string, double> inFile = processInFile(argv[1]);
+	for (std::multimap<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
 		std::cout << it->first << " " << it->second << std::endl;
 	
 		// for (std::map<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
