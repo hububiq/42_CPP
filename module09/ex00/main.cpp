@@ -1,5 +1,41 @@
 #include "BitcoinExchange.hpp"
 
+//Handle bad input - just date or just value in function responsible for printing 
+
+std::map<std::string, double> processInFile(std::string name)
+{
+	std::string line;
+	std::map<std::string, double> inFileMap;
+	std::ifstream inFile(name.c_str());
+	if (!inFile.is_open())
+		return std::cerr << "Couldn't open input file" << std::endl, inFileMap;
+	while (getline(inFile, line))
+	{
+		std::string date = line.substr(0, line.find("|") - 1);
+		std::string valueStr = line.substr(line.find("|") + 1);
+		double value = std::atof(valueStr.c_str()); 		//atof ignoring leading and trailing white char
+		try
+		{
+			if (value < 0)
+			{
+				throw std::invalid_argument("Error: not a positive number.");
+				inFileMap[date] = value;
+				continue;
+			}
+			else if (value > 1000)
+			{
+				throw std::invalid_argument("Error: too large a number.");
+				inFileMap[date] = value;
+				continue;
+			}
+			inFileMap[date] = value;
+		}
+		catch (std::invalid_argument& e) { std::cout << e.what() << std::endl; continue; }
+		std::cout << inFileMap[date] << std::endl;
+	}
+	return inFileMap;
+}
+
 std::map<std::string, double> processDb(std::ifstream& Db)
 {
 	std::string line;
@@ -24,8 +60,20 @@ int main(int argc, char **argv)
 	if (!DbFile.is_open())
 		return std::cerr << "Couldn't open such file" << std::endl, -1;
 	std::map<std::string, double> priceMap = processDb(DbFile);
-	// for (std::map<std::string, double>::const_iterator it = priceMap.begin(); it != priceMap.end(); it++)
-		// std::cout << it->first << " " << it->second << std::endl;
+	std::map<std::string, double> inFile = processInFile(argv[1]);
+	for (std::map<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
+		std::cout << it->first << " " << it->second << std::endl;
+	
+		// for (std::map<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
+		// {
+		// 	 std::cout << it->first << " " << it->second << std::endl;
+		// }
+
+
+	// program uzyje input.txt->second aby przemnozyc wartosc z danej daty z data.csv->second
+	// i wyswietlic na standard output.
+
+	//lowerbound funkcja mapy.
 
 	/* function to pass Map to calculation and input.txt */
 	// std::ifstream file(name.c_str());  //ofstream construction with std::string converted to char *

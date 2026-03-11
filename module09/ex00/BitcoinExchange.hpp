@@ -6,6 +6,7 @@
 # include <fstream>
 # include <map>
 # include <cstdlib>
+# include <stdexcept>
 class BitcoinExchange
 {
 	private:
