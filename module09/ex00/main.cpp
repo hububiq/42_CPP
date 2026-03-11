@@ -1,6 +1,35 @@
 #include "BitcoinExchange.hpp"
 
-//Handle bad input - just date or just value in function responsible for printing 
+
+// void calculate(std::multimap<std::string, double> priceMap, std::multimap<std::string, double> inFile)
+// {
+// 	return ;
+// }
+
+bool checkLine(std::string line, size_t& indexIn, std::string& valueStr)
+{
+	double value = std::atof(valueStr.c_str());
+	try
+	{
+		if (indexIn == std::string::npos)
+		{
+			std::cout << "Error: bad input => " << line << std::endl;
+			return 1;
+		}
+		else if (value < 0)
+		{
+			throw std::invalid_argument("Error: not a positive number.");
+			return 1;
+		}
+		else if (value > 1000)
+		{
+			throw std::invalid_argument("Error: too large a number.");
+			return 1;
+		}
+	}
+	catch (std::invalid_argument& e) { std::cout << e.what() << std::endl;};
+	return 0;
+}
 
 std::multimap<std::string, double> processInFile(std::string name)
 {
@@ -11,26 +40,13 @@ std::multimap<std::string, double> processInFile(std::string name)
 		return std::cerr << "Couldn't open input file" << std::endl, inFileMap;
 	while (getline(inFile, line))
 	{
-		std::string date = line.substr(0, line.find("|") - 1);
-		std::string valueStr = line.substr(line.find("|") + 1);
-		double value = std::atof(valueStr.c_str()); 		//atof ignoring leading and trailing white char
-		try
-		{
-			if (value < 0)
-			{
-				throw std::invalid_argument("Error: not a positive number.");
-				inFileMap.insert(std::make_pair(date, value));
-				continue;
-			}
-			else if (value > 1000)
-			{
-				throw std::invalid_argument("Error: too large a number.");
-				inFileMap.insert(std::make_pair(date, value));
-				continue;
-			}
-			inFileMap.insert(std::make_pair(date, value));
-		}
-		catch (std::invalid_argument& e) { std::cout << e.what() << std::endl; continue; };
+		size_t index = line.find("|");
+		std::string date = line.substr(0, index - 1);
+		std::string valueStr = line.substr(index + 1);
+		if (checkLine(line, index, valueStr))
+			continue;
+		double value = std::atof(valueStr.c_str()); //atof ignoring leading and trailing white char
+		inFileMap.insert(std::make_pair(date, value));
 	}
 	return inFileMap;
 }
@@ -60,14 +76,9 @@ int main(int argc, char **argv)
 		return std::cerr << "Couldn't open such file" << std::endl, -1;
 	std::multimap<std::string, double> priceMap = processDb(DbFile);
 	std::multimap<std::string, double> inFile = processInFile(argv[1]);
-	for (std::multimap<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
-		std::cout << it->first << " " << it->second << std::endl;
-	
-		// for (std::map<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
-		// {
-		// 	 std::cout << it->first << " " << it->second << std::endl;
-		// }
-
+	// calculate(priceMap, inFile);m
+	// for (std::multimap<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
+		// std::cout << it->first << " " << it->second << std::endl;
 
 	// program uzyje input.txt->second aby przemnozyc wartosc z danej daty z data.csv->second
 	// i wyswietlic na standard output.
@@ -76,5 +87,11 @@ int main(int argc, char **argv)
 
 	/* function to pass Map to calculation and input.txt */
 	// std::ifstream file(name.c_str());  //ofstream construction with std::string converted to char *
+	/* for printing function
+	if (index == std::string::npos)
+		{
+			std::cout << "Bad input" << std::endl;
+			continue;
+		}*/
 	return 0;
 }
