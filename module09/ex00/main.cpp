@@ -5,47 +5,67 @@ void calculate(std::string& valueStr, std::multimap<std::string, double>& priceM
     value = std::atof(valueStr.c_str()); 												//atof ignoring leading and trailing white char
 	std::multimap<std::string, double>::const_iterator it = priceMap.upper_bound(date); //lower_bound because there might not be exact date
 	if (it != priceMap.begin())
+	{
 		it--;
+		std::cout << date << " =>" << valueStr << " = " << it->second * value << std::endl;
+	}
 	else
 	{
 		std::cout << "There is no such or earlier date" << std::endl;
 		return ;
 	}
-	if (it->first != date && it != priceMap.end())  															//if iterator is valid
-		std::cout << date << " =>" << valueStr << " = " << it->second * value << std::endl;
 	return ;
 }
 
-bool checkDate(std::string& date)
+bool checkDate(std::string& date, std::string line)
 {
-	int size = date.size();
-	if (size != 10 && date != "date")/*|| size != 4*/
+	try 
 	{
-		std::cout << "Error: Bad date formattt" << std::endl; 
-		return true;
+		int size = date.size();
+		if (date == "date")
+			return true;
+		if (size != 10)
+			throw std::invalid_argument("Error: bad input => ");
+		else if (date[4] != '-' && date[7] != '-' && date != "date")
+			throw std::invalid_argument("Error: bad input => ");
+		size_t year_index = date.find("-");
+		int year = std::atoi((date.substr(0, year_index)).c_str());
+		if (year < 2009 || year > 2022)
+			throw std::invalid_argument("Error: bad input => ");
+		std::string monthStr = date.substr(year_index + 1, 2);
+		int month = atoi(monthStr.c_str());
+		if (month < 1 || month > 12)
+			throw std::invalid_argument("Error: bad input => ");
+		std::string dayStr = date.substr(year_index + 4, 2);
+		int day = atoi(dayStr.c_str());
+		int OneMonths[7] = {1, 3, 5, 7, 8, 10, 12};
+		int* it;
+		it = std::find(OneMonths, OneMonths + 7, month);
+		if (it == OneMonths + 7)							//outside array - month is not in array
+		{
+			if (month == 2 && day > 28 && ((year % 400 != 0 && year % 100 == 0) || year % 4 != 0 ))
+				throw std::invalid_argument("Error: bad input => ");
+			else if (monthStr == "02" && day > 28)
+				throw std::invalid_argument("Error: bad input => ");
+			else if (day > 30)
+				throw std::invalid_argument("Error: bad input => ");
+		}
+		else
+		{
+			if (day > 31 || day < 1)
+				throw std::invalid_argument("Error: bad input => ");
+		}
 	}
-	else if (date[4] != '-' && date[7] != '-' && date != "date")
-	{
-		std::cout << date[4] << std::endl;
-		std::cout << "Error: Bad date format" << std::endl;
-		return true;
-	}
+	catch (std::invalid_argument& e) {std::cout << "Error: bad input => " << line << std::endl; return true;}
 	return false;
 }
 
-bool checkLine(std::string line, size_t& indexIn, std::string& valueStr)
+bool checkLine(std::string& valueStr)
 {
 	double value = std::atof(valueStr.c_str());
-	if (line.empty())
-		return true;
 	try
 	{
-		if (indexIn == std::string::npos)
-		{
-			std::cout << "Error: bad input => " << line << std::endl;
-			return true;
-		}
-		else if (value < 0)
+		if (value < 0)
 			throw std::invalid_argument("Error: not a positive number.");
 		else if (value > 1000)
 			throw std::invalid_argument("Error: too large a number.");
@@ -63,12 +83,19 @@ std::multimap<std::string, double> processInFile(std::string name, std::multimap
 		return std::cerr << "Couldn't open input file" << std::endl, inFileMap;
 	while (getline(inFile, line))
 	{
-		size_t index = line.find("|");
-		std::string date = line.substr(0, index - 1);
-		if (checkDate(date))
+		if (line.empty())
 			continue;
+		size_t index = line.find("|");
+		if (index == std::string::npos)
+		{
+			std::cout << "Error: bad input => " << line << std::endl;
+			continue;
+		}
+		std::string date = line.substr(0, index - 1);
 		std::string valueStr = line.substr(index + 1);
-		if (checkLine(line, index, valueStr))
+		if (checkLine(valueStr))
+			continue;
+		if (checkDate(date, line))
 			continue;
 		double value = 0;
 		calculate(valueStr, priceMap, date, value);
@@ -101,7 +128,5 @@ int main(int argc, char **argv)
 		return std::cerr << "Couldn't open such file" << std::endl, -1;
 	std::multimap<std::string, double> priceMap = processDb(DbFile);
 	std::multimap<std::string, double> inFile = processInFile(argv[1], priceMap);
-	// for (std::multimap<std::string, double>::const_iterator it = inFile.begin(); it != inFile.end(); it++)
-		// std::cout << it->first << " " << it->second << std::endl;
 	return 0;
 }

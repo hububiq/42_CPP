@@ -7,6 +7,7 @@
 # include <map>
 # include <cstdlib>
 # include <stdexcept>
+# include <algorithm>
 class BitcoinExchange
 {
 	private:
