@@ -19,8 +19,7 @@ void calculate(std::string& valueStr, std::multimap<std::string, double>& priceM
 
 bool checkDate(std::string& date, std::string line)
 {
-	try 
-	{
+	try {
 		int size = date.size();
 		if (date == "date")
 			return true;
@@ -39,8 +38,7 @@ bool checkDate(std::string& date, std::string line)
 		std::string dayStr = date.substr(year_index + 4, 2);
 		int day = atoi(dayStr.c_str());
 		int OneMonths[7] = {1, 3, 5, 7, 8, 10, 12};
-		int* it;
-		it = std::find(OneMonths, OneMonths + 7, month);
+		int* it = std::find(OneMonths, OneMonths + 7, month);
 		if (it == OneMonths + 7)							//outside array - month is not in array
 		{
 			if (month == 2 && day > 28 && ((year % 400 != 0 && year % 100 == 0) || year % 4 != 0 ))
@@ -50,11 +48,8 @@ bool checkDate(std::string& date, std::string line)
 			else if (day > 30)
 				throw std::invalid_argument("Error: bad input => ");
 		}
-		else
-		{
-			if (day > 31 || day < 1)
-				throw std::invalid_argument("Error: bad input => ");
-		}
+		else if (day > 31 || day < 1)
+			throw std::invalid_argument("Error: bad input => ");
 	}
 	catch (std::invalid_argument& e) {std::cout << "Error: bad input => " << line << std::endl; return true;}
 	return false;
@@ -88,8 +83,7 @@ std::multimap<std::string, double> processInFile(std::string name, std::multimap
 		size_t index = line.find("|");
 		if (index == std::string::npos)
 		{
-			std::cout << "Error: bad input => " << line << std::endl;
-			continue;
+			std::cout << "Error: bad input => " << line << std::endl; continue;
 		}
 		std::string date = line.substr(0, index - 1);
 		std::string valueStr = line.substr(index + 1);
