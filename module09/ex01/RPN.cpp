@@ -19,15 +19,16 @@ void RPN::pushNumber(int x)
 	this->_RpnStack.push(x);
 }
 
-void RPN::executeOperator(char op)
+int RPN::executeOperator(char op)
 {
 	if (this->_RpnStack.size() < 2)
-		throw std::runtime_error("Error: wrong number of elements");
-	int b = this->_RpnStack.top(); 
-	std::cout << "Top po pierwszym razie" << b << std::endl;
+	{
+		std::cout << "Error: wrong number of elements" << std::endl;
+		return 1;
+	}
+	int b = this->_RpnStack.top();
 	this->_RpnStack.pop();
 	int a = this->_RpnStack.top();
-	std::cout << "Top po drugim razie" << a << std::endl;
 	this->_RpnStack.pop();
 	if (op == '+')
 		this->_RpnStack.push(a + b);
@@ -41,12 +42,17 @@ void RPN::executeOperator(char op)
 			throw std::runtime_error("Error: Division by zero");
 		this->_RpnStack.push(a / b);
 	}
-	return ;
+	return 0;
 }
 
 int RPN::reportStackTop()
 {
     return this->_RpnStack.top();
+}
+
+int RPN::getStackSize()
+{
+	return this->_RpnStack.size();
 }
 
 RPN::~RPN() {}
