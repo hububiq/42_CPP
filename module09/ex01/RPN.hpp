@@ -19,8 +19,9 @@ class RPN
         RPN& operator=(const RPN& other);
         ~RPN();
 		void pushNumber(int x);
-		void executeOperator(char op);
+		int executeOperator(char op);
 		int reportStackTop();
+        int getStackSize();
 };
 
 #endif
