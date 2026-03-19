@@ -2,9 +2,11 @@
 # define PMERGEME_HPP
 # include <iostream>
 # include <string>
+# include <stdexcept>
 # include <vector>
 # include <list>
 # include <sstream>
+# include <algorithm> //for begin() end() iterators
 
 class PmergeMe
 {
@@ -15,7 +17,8 @@ class PmergeMe
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
-        //func to filter signed integers
+        void pushNumber(int val);
+        void validateInput(std::stringstream& ss);
 };
 
 #endif

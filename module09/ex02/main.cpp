@@ -1,31 +1,24 @@
 #include "PmergeMe.hpp"
 
-//perhaps create validating function first
 //while pushing to vector, start assigning those pairs to struct? enum?
-//resolve duplicates, in raw argv[1]. vector has no find like string but should take from global with range iterators
 
 int main(int argc, char **argv)
 {
-    std::stringstream ss(argv[1]);
-    std::vector<int> a;
-    std::string token;
+    PmergeMe obj;
+    std::stringstream ss;
 
-    while(ss >> token)
+    if (argc == 2)
+        return std::cout << "Nothing to sort." << std::endl, 0;
+    for (int i = 1; i < argc; i++)
+        ss << argv[i] << " ";
+    try 
     {
-        for (int i = 0; i < token.size(); i++)
-        {
-            if (!std::isdigit(token[i]))                     //handle also minus
-                return std::cerr << "Wrong input" << std::endl, 1;
-            // if (argv[1].find(token))
-            //     return std::cerr << "There is duplicate in input" << std::endl, 1;
-            if (token.size() == 1)
-                a.push_back((token[i]) - '0');
-            else
-                a.push_back(std::stoi(token));
-            if (token.find(argv[1]))
-                std::cout << "Duplicates" << std::endl;
-        }
-        // std::cout << a.size() << std::endl;
+        obj.validateInput(ss);
+    }
+    catch (std::invalid_argument& e)
+    {
+        std::cout << e.what() << std::endl;
+        return 1;
     }
 
     return 0;
