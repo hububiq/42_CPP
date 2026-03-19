@@ -32,12 +32,32 @@ void PmergeMe::validateInput(std::stringstream& ss)
         {
             if (!std::isdigit(token[i]))                                    //handle also minus
                 throw std::invalid_argument("Wrong input.");
-                // return std::cerr << "Wrong input" << std::endl, 1;
         }
         if (std::find(this->_vec.begin(), this->_vec.end(), std::stoi(token)) != this->_vec.end())
-                throw std::invalid_argument("Duplicates");
+                throw std::invalid_argument("Duplicates.");
         else
             this->pushNumber(std::stoi(token));
-        std::cout << "Rozmiar to: " << this->_vec.size() << std::endl;
     }
+    // std::cout << "Rozmiar to: " << this->_vec.size() << std::endl;
+}
+
+void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
+{
+    int elements = vec.size() / blockSize;
+    if (elements < 2)
+        return ;
+    for (int i = 1; i < elements; i += 2)      
+    {
+        if (vec[(i + 1) * blockSize - 1] < vec[(i * blockSize) - 1])
+            std::swap(vec[(i + 1) * blockSize - 1], vec[i * blockSize - 1]);
+    }
+    for (int i = 0; i < vec.size(); i++)
+        std::cout << vec[i] << " ";
+    std::cout << std::endl;
+    _algo(vec, blockSize * 2, recStep + 1);
+}
+
+void PmergeMe::executeAlgo()
+{
+    this->_algo(this->_vec, 1, 1);
 }
