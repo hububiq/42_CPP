@@ -2,7 +2,7 @@ CC = c++
 NAME = PmergMe
 FLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES = PmergMe.hpp
-SRC = PmergMe.cpp main.cpp
+SRC = PmergeMe.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 RM = rm -f
 
