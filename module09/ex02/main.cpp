@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     try 
     {
         obj.validateInput(ss);
+        obj.executeAlgo();
     }
     catch (std::invalid_argument& e)
     {

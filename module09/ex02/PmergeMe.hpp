@@ -12,6 +12,7 @@ class PmergeMe
 {
     private:
         std::vector<int> _vec;
+        void _algo(std::vector<int>& vec, int blockSize, int recStep);     //private for work, public function just for starter
     public:
         PmergeMe();
         PmergeMe(const PmergeMe& other);
@@ -19,6 +20,7 @@ class PmergeMe
         ~PmergeMe();
         void pushNumber(int val);
         void validateInput(std::stringstream& ss);
+        void executeAlgo();
 };
 
 #endif
