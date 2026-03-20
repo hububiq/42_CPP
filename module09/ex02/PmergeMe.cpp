@@ -48,8 +48,13 @@ void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
         return ;
     for (int i = 1; i < elements; i += 2)      
     {
-        if (vec[(i + 1) * blockSize - 1] < vec[(i * blockSize) - 1])
-            std::swap(vec[(i + 1) * blockSize - 1], vec[i * blockSize - 1]);
+        int rightWinner = (i + 1) * blockSize - 1;
+        int leftWinner = i * blockSize - 1;
+        if (vec[rightWinner] < vec[leftWinner])
+        {
+            for (int i = 0; i < blockSize; i++)
+                std::swap(vec[rightWinner - i], vec[leftWinner - i]);
+        }
     }
     for (int i = 0; i < vec.size(); i++)
         std::cout << vec[i] << " ";

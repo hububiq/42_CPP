@@ -1,6 +1,8 @@
 #include "PmergeMe.hpp"
 
-//while pushing to vector, start assigning those pairs to struct? enum?
+//enum to differ containers?
+//int overflow?
+//looping will for quick on i.e. 3000 numbers. new/malloc or creating subvectors will take processor time for memory management
 
 int main(int argc, char **argv)
 {
