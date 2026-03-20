@@ -38,7 +38,23 @@ void PmergeMe::validateInput(std::stringstream& ss)
         else
             this->pushNumber(std::stoi(token));
     }
-    // std::cout << "Rozmiar to: " << this->_vec.size() << std::endl;
+}
+
+void PmergeMe::initMainPend(std::vector<int>& vec, int blockSize, int elements, dbVec& mainChain, dbVec& pendChain)
+{
+    for (int i = 0; i < 2; i++)
+    {
+        int start = i * blockSize;
+        std::vector<int> AB(vec.begin() + start, vec.begin() + start + blockSize);
+        mainChain.push_back(AB);
+    }
+    for (int i = 2; i < elements - 1; i += 2)
+    {
+        std::vector<int> bBlock(vec.begin() + i * blockSize, vec.begin() + (i + 1) * blockSize);
+        pendChain.push_back(bBlock);
+        std::vector<int> aBlock(vec.begin() + (i + 1) * blockSize, vec.begin() + (i + 2) * blockSize);
+        mainChain.push_back(aBlock);
+    }
 }
 
 void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
@@ -61,52 +77,31 @@ void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
     std::cout << std::endl;
     _algo(vec, blockSize * 2, recStep + 1);
     std::cout << "Only here creating the main and pend in step:" << recStep << std::endl;
-    // std::cout << vec[blockSize - 1] << std::endl;
-    std::vector<std::vector<int>> mainChain;
-    std::vector<std::vector<int>> pendChain;
-    for (int i = 1; i < elements; i++)
-    {
-        if (i % 2 != 0)
-        {
-            std::vector<int> tempPend;
-            for (int j = 0; j < blockSize; j++)
-            {
-                tempPend.push_back(vec[i * j]);
-            }
-            pendChain.push_back(tempPend);
-        }
-        else if (i % 2 == 0)
-        {
-            std::vector<int> tempMain;
-            for (int j = 0; j < blockSize; j++)
-            {
-                tempMain.push_back(vec[i * j]);
-            }
-            mainChain.push_back(tempMain);
-        }
-    }
+    dbVec mainChain;
+    dbVec pendChain;
+    initMainPend(vec, blockSize, elements, mainChain, pendChain);
+    
+    //struggler also here?
+
     for (int i = 0; i < mainChain.size(); i++)
     {
         for (int j = 0; j < mainChain[i].size(); j++)
             std::cout << mainChain[i][j] << " ";
         std::cout << "TO byl main" << std::endl;
     }
-    // finish making main and pend
-    // create more generic logic and push to main with a helper or pushing straitaway the first loser to frontal main
-
-
-    //generate jacobstahl
-    //insert from pend to main based on indexes in pend compared to jacobsthal from lower to higher
-    //remember about "strugglers"
-    //split with helpers and objectify main algo scope
-    //add time measurement
-
-    // for (int i = 0; i < pendChain.size(); i++)
-    // {
-    //     for (int j = 0; j < pendChain[i].size(); j++)
-    //         std::cout << pendChain[i][j] << " ";
-    //     std::cout << "TO byl pend" << std::endl;
-    // }
+    
+    for (int i = 0; i < pendChain.size(); i++)
+    {
+        for (int j = 0; j < pendChain[i].size(); j++)
+        std::cout << pendChain[i][j] << " ";
+    std::cout << "TO byl pend" << std::endl;
+    }
+//generate jacobstahl
+//insert from pend to main based on indexes in pend compared to jacobsthal from lower to higher
+//clear or overwrite original vector and use it in next insertion
+//remember about "strugglers"
+//split with helpers and objectify main algo scope
+//add time measurement
 }
 
 void PmergeMe::executeAlgo()

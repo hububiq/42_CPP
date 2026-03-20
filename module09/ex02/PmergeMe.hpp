@@ -14,6 +14,7 @@ class PmergeMe
         std::vector<int> _vec;
         void _algo(std::vector<int>& vec, int blockSize, int recStep);     //private for work, public function just for starter
     public:
+        typedef std::vector<std::vector<int>> dbVec;
         PmergeMe();
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
@@ -21,6 +22,7 @@ class PmergeMe
         void pushNumber(int val);
         void validateInput(std::stringstream& ss);
         void executeAlgo();
+        void initMainPend(std::vector<int>& vec, int blockSize, int elements, dbVec& mainChain, dbVec& pendChain);
 };
 
 #endif
