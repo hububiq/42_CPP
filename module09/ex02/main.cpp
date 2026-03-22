@@ -4,6 +4,9 @@
 //int overflow?
 //looping with for is quick on i.e. 3000 numbers. new/malloc or creating subvectors will take processor time for memory management
 
+//TO DO
+//split with helpers and objectify main algo scope
+//add time measurement
 int main(int argc, char **argv)
 {
     PmergeMe obj;

@@ -42,12 +42,10 @@ void PmergeMe::validateInput(std::stringstream& ss)
 
 void PmergeMe::initMainPend(std::vector<int>& vec, int blockSize, int elements, dbVec& mainChain, dbVec& pendChain)
 {
-    for (int i = 0; i < 2; i++)
-    {
-        int start = i * blockSize;
-        std::vector<int> AB(vec.begin() + start, vec.begin() + start + blockSize);
-        mainChain.push_back(AB);
-    }
+    std::vector<int> b1(vec.begin(), vec.begin() + blockSize);
+    std::vector<int> a1(vec.begin() + blockSize, vec.begin() + 2 * blockSize);
+    mainChain.push_back(b1);
+    mainChain.push_back(a1);
     for (int i = 2; i < elements - 1; i += 2)
     {
         std::vector<int> bBlock(vec.begin() + i * blockSize, vec.begin() + (i + 1) * blockSize);
@@ -57,51 +55,106 @@ void PmergeMe::initMainPend(std::vector<int>& vec, int blockSize, int elements, 
     }
 }
 
+std::vector<int> PmergeMe::generateJakobstahl(int elements)
+{
+    std::vector<int> jakobNumbers;
+    jakobNumbers.push_back(0);
+    jakobNumbers.push_back(1);
+    int i = 2;
+    while (true)
+    {
+        int jakobNumb = jakobNumbers[i - 1] + 2 * jakobNumbers[i - 2];
+        jakobNumbers.push_back(jakobNumb);
+        if (jakobNumb > elements + 1)
+            break;
+        i++;
+    }
+    return jakobNumbers;
+}
+
+bool PmergeMe::compare(const std::vector<int>& a, const std::vector<int>& b)
+{
+    return a.back() < b.back();
+}
+
 void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
 {
     int elements = vec.size() / blockSize;
     if (elements < 2)
         return ;
-    for (int i = 1; i < elements; i += 2)      
+    std::vector<int> struggler;
+    bool hasStruggler = false;
+    if (elements % 2 != 0) 
+    {
+        int start = vec.size() - blockSize;         //cutting out the struggler
+        for (int k = 0; k < blockSize; k++) 
+        {
+            struggler.push_back(vec[start + k]);
+        }
+        vec.erase(vec.begin() + start, vec.end());
+        hasStruggler = true;
+    }
+    for (int i = 1; i < elements; i += 2)      //comparing elements
     {
         int rightWinner = (i + 1) * blockSize - 1;
         int leftWinner = i * blockSize - 1;
         if (vec[rightWinner] < vec[leftWinner])
         {
-            for (int i = 0; i < blockSize; i++)
-                std::swap(vec[rightWinner - i], vec[leftWinner - i]);
+            for (int j = 0; j < blockSize; j++)
+                std::swap(vec[rightWinner - j], vec[leftWinner - j]);
         }
     }
-    for (int i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
-    std::cout << std::endl;
     _algo(vec, blockSize * 2, recStep + 1);
-    std::cout << "Only here creating the main and pend in step:" << recStep << std::endl;
     dbVec mainChain;
     dbVec pendChain;
     initMainPend(vec, blockSize, elements, mainChain, pendChain);
-    
-    //struggler also here?
+    if (!pendChain.empty())
+    {
+        std::vector<int> jN = generateJakobstahl(pendChain.size());
+        int inserted = 1;
+        int lastPushedIndex = -1;
+        for (int i = 3; i < jN.size(); i++)
+        {
+            int currentJacob = jN[i];
+            int startIndex = std::min((int)pendChain.size() - 1, currentJacob - 2);             //safety for not going out of pend if its too short comparing to Jakobstahl number
+            for (int j = startIndex; j > lastPushedIndex; j--) //taking lower and lower b from pendChain
+            {
+                int pairNum = j + 2;                           //reverse logic to pair up to main
+                int limit = pairNum + inserted - 1;
+                int actualLimit = std::min((int)mainChain.size(), limit); //cast because min takes size_t
+                std::vector<std::vector<int> >::iterator it = std::lower_bound(
+                    mainChain.begin(), 
+                    mainChain.begin() + actualLimit, 
+                    pendChain[j], 
+                    compare); //pointer to function
+                    mainChain.insert(it, pendChain[j]);
+                    inserted++;
+            }
+            lastPushedIndex = startIndex;
+            if (lastPushedIndex >= (int)pendChain.size() - 1)
+                break;
+        }
+    }
+    if (hasStruggler) 
+    {
+        std::vector<std::vector<int> >::iterator it = std::lower_bound(
+             mainChain.begin(), 
+             mainChain.end(), 
+             struggler, 
+             compare
+         );
+         mainChain.insert(it, struggler);
+    }
+    vec.clear(); 
+    for (size_t i = 0; i < mainChain.size(); ++i) 
+    {
+        for (size_t j = 0; j < mainChain[i].size(); ++j) 
+            vec.push_back(mainChain[i][j]);
+    }
 
-    for (int i = 0; i < mainChain.size(); i++)
-    {
-        for (int j = 0; j < mainChain[i].size(); j++)
-            std::cout << mainChain[i][j] << " ";
-        std::cout << "TO byl main" << std::endl;
-    }
-    
-    for (int i = 0; i < pendChain.size(); i++)
-    {
-        for (int j = 0; j < pendChain[i].size(); j++)
-        std::cout << pendChain[i][j] << " ";
-    std::cout << "TO byl pend" << std::endl;
-    }
-//generate jacobstahl
-//insert from pend to main based on indexes in pend compared to jacobsthal from lower to higher
-//clear or overwrite original vector and use it in next insertion
-//remember about "strugglers"
-//split with helpers and objectify main algo scope
-//add time measurement
+    for (int i = 0; i < vec.size(); i++)
+        std::cout << vec[i] << " ";
+    std::cout << std::endl;
 }
 
 void PmergeMe::executeAlgo()
