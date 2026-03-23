@@ -18,6 +18,11 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
 
 PmergeMe::~PmergeMe() {}
 
+std::vector<int> PmergeMe::getVector()
+{
+    return this->_vec;
+}
+
 void PmergeMe::pushNumber(int val)
 {
     this->_vec.push_back(val);
@@ -77,24 +82,9 @@ bool PmergeMe::compare(const std::vector<int>& a, const std::vector<int>& b)
     return a.back() < b.back();
 }
 
-void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
+void PmergeMe::elemWinnersCompare(int elements, int blockSize, std::vector<int>& vec)
 {
-    int elements = vec.size() / blockSize;
-    if (elements < 2)
-        return ;
-    std::vector<int> struggler;
-    bool hasStruggler = false;
-    if (elements % 2 != 0) 
-    {
-        int start = vec.size() - blockSize;         //cutting out the struggler
-        for (int k = 0; k < blockSize; k++) 
-        {
-            struggler.push_back(vec[start + k]);
-        }
-        vec.erase(vec.begin() + start, vec.end());
-        hasStruggler = true;
-    }
-    for (int i = 1; i < elements; i += 2)      //comparing elements
+    for (int i = 1; i < elements; i += 2)               //comparing elements
     {
         int rightWinner = (i + 1) * blockSize - 1;
         int leftWinner = i * blockSize - 1;
@@ -104,57 +94,85 @@ void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
                 std::swap(vec[rightWinner - j], vec[leftWinner - j]);
         }
     }
-    _algo(vec, blockSize * 2, recStep + 1);
-    dbVec mainChain;
-    dbVec pendChain;
-    initMainPend(vec, blockSize, elements, mainChain, pendChain);
-    if (!pendChain.empty())
+}
+
+void PmergeMe::strugglerCut(std::vector<int>& struggler, bool& hasStruggler, std::vector<int>& vec, int blockSize)
+{
+     int start = vec.size() - blockSize;             //cutting out the struggler
+        for (int k = 0; k < blockSize; k++) 
+            struggler.push_back(vec[start + k]);
+        vec.erase(vec.begin() + start, vec.end());
+        hasStruggler = true;
+}
+
+void PmergeMe::jacobNumbersInsertion(dbVec& mainChain, dbVec& pendChain)
+{
+    std::vector<int> jN = generateJakobstahl(pendChain.size());
+    int inserted = 1;
+    int lastPushedIndex = -1;
+    for (int i = 3; i < jN.size(); i++)
     {
-        std::vector<int> jN = generateJakobstahl(pendChain.size());
-        int inserted = 1;
-        int lastPushedIndex = -1;
-        for (int i = 3; i < jN.size(); i++)
+        int currentJacob = jN[i];
+        int startIndex = std::min((int)pendChain.size() - 1, currentJacob - 2);             //safety for not going out of pend if its too short comparing to Jakobstahl number
+        for (int j = startIndex; j > lastPushedIndex; j--)                                  //taking lower and lower b from pendChain
         {
-            int currentJacob = jN[i];
-            int startIndex = std::min((int)pendChain.size() - 1, currentJacob - 2);             //safety for not going out of pend if its too short comparing to Jakobstahl number
-            for (int j = startIndex; j > lastPushedIndex; j--) //taking lower and lower b from pendChain
-            {
-                int pairNum = j + 2;                           //reverse logic to pair up to main
-                int limit = pairNum + inserted - 1;
-                int actualLimit = std::min((int)mainChain.size(), limit); //cast because min takes size_t
-                std::vector<std::vector<int> >::iterator it = std::lower_bound(
-                    mainChain.begin(), 
-                    mainChain.begin() + actualLimit, 
-                    pendChain[j], 
-                    compare); //pointer to function
-                    mainChain.insert(it, pendChain[j]);
-                    inserted++;
-            }
-            lastPushedIndex = startIndex;
-            if (lastPushedIndex >= (int)pendChain.size() - 1)
-                break;
+            int pairNum = j + 2;                                                            //reverse logic to pair up to main, which in order
+            int limit = pairNum + inserted - 1;
+            int actualLimit = std::min((int)mainChain.size(), limit);                       //cast because min takes both types the same
+            std::vector<std::vector<int> >::iterator it = std::lower_bound(
+                mainChain.begin(), 
+                mainChain.begin() + actualLimit, 
+                pendChain[j], 
+                compare);                                                                   //pointer to function
+            mainChain.insert(it, pendChain[j]);
+            inserted++;
         }
+        lastPushedIndex = startIndex;
+        if (lastPushedIndex >= (int)pendChain.size() - 1)
+            break;
     }
-    if (hasStruggler) 
-    {
-        std::vector<std::vector<int> >::iterator it = std::lower_bound(
-             mainChain.begin(), 
-             mainChain.end(), 
-             struggler, 
-             compare
-         );
-         mainChain.insert(it, struggler);
-    }
+}
+
+void PmergeMe::rewriteVec(std::vector<int>& vec, dbVec& mainChain)
+{
     vec.clear(); 
     for (size_t i = 0; i < mainChain.size(); ++i) 
     {
         for (size_t j = 0; j < mainChain[i].size(); ++j) 
             vec.push_back(mainChain[i][j]);
     }
+}
 
-    for (int i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
-    std::cout << std::endl;
+void PmergeMe::strugglerInsert(dbVec& mainChain, std::vector<int>& struggler)
+{
+    std::vector<std::vector<int> >::iterator it = std::lower_bound(
+             mainChain.begin(), 
+             mainChain.end(), 
+             struggler, 
+             compare);
+    mainChain.insert(it, struggler);
+}
+
+void PmergeMe::_algo(std::vector<int>& vec, int blockSize, int recStep)
+{
+    std::vector<int> struggler;
+    bool hasStruggler = false;
+    dbVec mainChain;
+    dbVec pendChain;
+
+    int elements = vec.size() / blockSize;
+    if (elements < 2)
+        return ;
+    if (elements % 2 != 0) 
+       PmergeMe::strugglerCut(struggler, hasStruggler, vec, blockSize);
+    PmergeMe::elemWinnersCompare(elements, blockSize, vec);
+    _algo(vec, blockSize * 2, recStep + 1);
+    PmergeMe::initMainPend(vec, blockSize, elements, mainChain, pendChain);
+    if (!pendChain.empty())
+        PmergeMe::jacobNumbersInsertion(mainChain, pendChain);
+    if (hasStruggler) 
+        PmergeMe::strugglerInsert(mainChain, struggler);
+    PmergeMe::rewriteVec(vec, mainChain);
 }
 
 void PmergeMe::executeAlgo()
