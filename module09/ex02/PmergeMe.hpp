@@ -22,7 +22,6 @@ class PmergeMe
         void _algo(T& container, int blockSize, int recStep);                          //private for work, public function just for starter
     public:
         PmergeMe();
-        // PmergeMe(ContainerType type);
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
@@ -104,9 +103,9 @@ bool PmergeMe<T>::compare(const T& a, const T& b)
 {
     return a.back() < b.back();
 }
-
-template <typename T>
-template <typename D>
+                                                            //"template" twice because definition outside class body
+template <typename T>                                       //unwrapping the class first
+template <typename D>                                       //only now the function nested.
 void PmergeMe<T>::jacobNumbersInsertion(D& mainChain, D& pendChain)
 {
     T jN = generateJakobstahl(pendChain.size());
