@@ -9,6 +9,7 @@
 # include <algorithm> //for begin(), end() iterator, std::min()
 # include <ctime>
 # include <iomanip>
+# include <cstdlib>
 
 
 template <typename T>
@@ -86,15 +87,15 @@ void PmergeMe<T>::validateInput(std::stringstream& ss)
 
     while(ss >> token)
     {
-        for (int i = 0; i < token.size(); i++)
+        for (unsigned int i = 0; i < token.size(); i++)
         {
             if (!std::isdigit(token[i]))                                    //handle also minus
                 throw std::invalid_argument("Wrong input.");
         }
-        if (std::find(this->_container.begin(), this->_container.end(), std::stoi(token)) != this->_container.end())
+        if (std::find(this->_container.begin(), this->_container.end(), std::atoi(token.c_str())) != this->_container.end())
                 throw std::invalid_argument("Duplicates.");
         else
-            this->pushNumber(std::stoi(token));
+            this->pushNumber(std::atoi(token.c_str()));
     }
 }
 
@@ -103,7 +104,7 @@ bool PmergeMe<T>::compare(const T& a, const T& b)
 {
     return a.back() < b.back();
 }
-                                                            //"template" twice because definition outside class body
+															//"template" twice because definition outside class body
 template <typename T>                                       //unwrapping the class first
 template <typename D>                                       //only now the function nested.
 void PmergeMe<T>::jacobNumbersInsertion(D& mainChain, D& pendChain)
@@ -111,7 +112,7 @@ void PmergeMe<T>::jacobNumbersInsertion(D& mainChain, D& pendChain)
     T jN = generateJakobstahl(pendChain.size());
     int inserted = 1;
     int lastPushedIndex = -1;
-    for (int i = 3; i < jN.size(); i++)
+    for (unsigned int i = 3; i < jN.size(); i++)
     {
         int currentJacob = jN[i];
         int startIndex = std::min((int)pendChain.size() - 1, currentJacob - 2);             //safety for not going out of pend if its too short comparing to Jakobstahl number
