@@ -39,7 +39,7 @@ int RPN::executeOperator(char op)
 	else if (op == '/')
 	{
 		if (b == 0)
-			throw std::runtime_error("Error: Division by zero");
+			return std::cout << "Division by zero" << std::endl, 1;
 		this->_RpnStack.push(a / b);
 	}
 	return 0;

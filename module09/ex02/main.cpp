@@ -37,6 +37,16 @@ int main(int argc, char **argv)
         std::cerr << e.what() << std::endl;
         return 1;
     }
+	catch (std::out_of_range& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
+	catch (std::runtime_error& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
     std::cout << "Before:  ";
     for (int i = 1; i < argc; i++)
         std::cout << argv[i] << " ";
@@ -47,8 +57,8 @@ int main(int argc, char **argv)
         std::cout << vecShow[i] << " ";
     std::cout << std::endl;
     std::cout << "Time to process a range of " << argc - 1 << " arguments with std::" << "vector is : " <<              //should it be more generic?
-    std::fixed << std::setprecision(1) << (float)(afterV - beforeV) / CLOCKS_PER_SEC * 1000000 << " us" << std::endl;
+    /*std::fixed << std::setprecision(1) <<*/ (float)(afterV - beforeV) / CLOCKS_PER_SEC * 1000000 << " us" << std::endl;
     std::cout << "Time to process a range of " << argc - 1 << " arguments with std::" << "deque is : " <<           
-    std::fixed << std::setprecision(1) << (float)(afterD - beforeD) / CLOCKS_PER_SEC * 1000000 << " us" << std::endl;
+    /*std::fixed << std::setprecision(1) <<*/ (float)(afterD - beforeD) / CLOCKS_PER_SEC * 1000000 << " us" << std::endl;
     return 0;
 }
