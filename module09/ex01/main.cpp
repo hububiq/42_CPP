@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	std::string token;
 
     if (argc != 2)
-		std::cerr << "Error" << std::endl;
+		return std::cerr << "Error" << std::endl, 1;
 	while (ss >> token)
 	{
 		if (token.size() > 1 && token[0] != '-')

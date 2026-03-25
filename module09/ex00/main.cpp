@@ -1,9 +1,12 @@
 #include "BitcoinExchange.hpp"
 
+/*upper_bound because there might not be exact date.
+iterator takes to first higher value and we decrement so its sure now we are the nearest lowest date to which we look for*/
+
 void calculate(std::string& valueStr, std::multimap<std::string, double>& priceMap, std::string& date, double& value)
 {
     value = std::atof(valueStr.c_str()); 												//atof ignoring leading and trailing white char
-	std::multimap<std::string, double>::const_iterator it = priceMap.upper_bound(date); //lower_bound because there might not be exact date
+	std::multimap<std::string, double>::const_iterator it = priceMap.upper_bound(date); 
 	if (it != priceMap.begin())
 	{
 		it--;

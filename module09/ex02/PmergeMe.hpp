@@ -10,6 +10,8 @@
 # include <ctime>
 # include <iomanip>
 # include <cstdlib>
+# include <climits>
+# include <cerrno>
 
 
 template <typename T>
@@ -89,13 +91,21 @@ void PmergeMe<T>::validateInput(std::stringstream& ss)
     {
         for (unsigned int i = 0; i < token.size(); i++)
         {
-            if (!std::isdigit(token[i]))                                    //handle also minus
+            if (!std::isdigit(token[i]))                                   //handle also minus
                 throw std::invalid_argument("Wrong input.");
         }
         if (std::find(this->_container.begin(), this->_container.end(), std::atoi(token.c_str())) != this->_container.end())
                 throw std::invalid_argument("Duplicates.");
         else
+		{
+			char* end;
+			long value = std::strtol(token.c_str(), &end, 10);
+			if (*end != '\0')
+			    throw std::runtime_error("Wrong input: not a valid number");
+			if (value > INT_MAX || value < INT_MIN)
+			    throw std::out_of_range("Wrong input: number out of range");
             this->pushNumber(std::atoi(token.c_str()));
+		}
     }
 }
 
